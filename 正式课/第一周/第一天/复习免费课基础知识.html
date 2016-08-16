@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    /*
+    *  基本数据类型: number parseInt parseFloat Number isNaN  - * / +
+    *               string " " + 7
+    *                   charAt(index)
+    *                   charCodeAt(index)
+    *
+    *                   substr(n,m) m是数量
+    *                   substring(n,m) m是索引
+    *                   slice()  负数索引
+    *
+    *                   toUpperCase()
+    *                   toLowerCase()
+    *
+    *                   indexOf() -1
+    *                   lastIndexOf() -1
+    *
+    *                   window.navigator.userAgent ="     MSIE 8.0  "
+    *
+    *                   split("")
+    *
+    *                   replace(old,new) 如果第二个参数是函数,是用这个函数的返回值去替换原有字符串
+    *                   match
+    *
+    *                boolean  true/false
+    *                = 赋值
+    *                var obj = {}; // 开辟一个内存空间，把属性名字和属性值当作字符串添加到这个内存空间中，然后把空间地址赋值给obj变量   ==> obj代表的就是一个堆内存地址
+    *                函数的赋值过程： 是把函数的空间地址赋值给函数名字
+    *                ==
+    *                [] == false   [].toString() ==> ""  Number("") ==> 0  Number(false) ==> 0    0 == 0  ==> true
+    *                object == object   false
+    *                object == string   object==>string
+    *                ..... 左右两边都转化成数字
+    *                ===
+    *
+    *                null   undefined(1 一个对象根本不存在的属性  2 定义了形参但是没有传  3 如果函数体中没有return那么函数运行完留下的结果就是undefiend )
+    *
+    *                自身false: 0 NaN "" null undefined  ! !!
+    *
+    *                引用:
+    *                   {}  对象.属性名 = 属性值   对象['属性名'] = 属性值  delete
+    *                   []  length  ary[ary.length] = value  ary.length--   索引
+    *                       unshift()
+      *
+    *                       shift()
+    *                       push()
+    *                       pop()
+    *                       splice(n,m) []
+    *                       splice(n,m,x) []
+    *                       slice(n,m)
+      *
+      *                     concat([8],9)
+      *                     join() eval()
+      *
+      *                     reverse()
+      *                     sort(function (a,b){ return a-b })
+      *
+      *                     indexOf
+      *                     lastIndexOf
+      *
+      *                     forEach(function (item,index){})
+      *                     map(function (item,index){return })
+      *
+      *                 var date = new Date() 时间格式的字符串
+      *                         date.getFullYear()
+      *                         getMonth()
+      *                         getDate()
+      *                         getDay()
+      *                         getHours()
+      *                         getMinutes()
+      *                         getSeconds()
+      *                         getMilliSeconds()
+      *                         getTime()
+      *
+      *                  Math
+      *                       Math.abs()
+      *                       Math.max()
+      *                       Math.min()
+      *                       Math.ceil()
+      *                       Math.floor()
+      *                       Math.round()
+      *                       Math.random()
+      *                       Math.round(Math.random()*(m-n)+n)
+      *
+      *                判断
+      *                   if(document.getElementById("div1")){  //判断一个元素是否存在
+      *
+      *                   }else if(a == b){
+      *
+      *                   }
+      *                   switch case ==> break;
+      *                   三元运算符  条件 ?  条件真执行 : 条件为false执行
+      *
+      *                循环
+      *
+      *                    for(var i=0; i<5;i++ ){ //我们知道次数，length
+      *                         continue;  i++继续
+      *                         break;  直接跳出循环
+      *                    }
+      *
+      *                    for(var key in obj){
+      *                        key每循环一次都代表不同的属性名字
+      *                        obj[key]
+      *                    }
+      *
+      *                    while(pre && pre.nodeType != 1){ //条件
+      *                        pre = pre.previousSibling; //条件迭代
+      *                    }
+      *
+      *                    99乘法表   两个循环
+      *
+      *                    for(var i=1; i<=9; i++){
+      *                        for(j=1; j<=9; j++){
+      *
+      *                        }
+      *                    }
+      *
+      *                    i%3
+      *                    div.money = "12k"; //
+      *                    div.onclick = function (){
+      *                        console.log(this.mondey)
+      *                    };
+      *
+      *                    //自定义属性一般用来存储值的
+      *
+      *                    函数
+      *                    function fn(n,m){ //函数名字也可以理解为一个变量，这个变量存储的是函数的堆内存地址
+      *                       undefined
+         *                    arguments [1,2]  //所有的实参，类数组 index  length
+       *                    //形参相当于在函数体内声明变量
+      *                         console.log(m,n);
+      *                        console.log(1);
+      *                        //return 函数运行想留下结果
+      *                        undefined {he:  cha:  }
+      *                    }
+      *                    var obj = {}
+      *                    fn(obj,2);
+       *                    console.log(fn);
+       *
+       *                    选项卡:
+       *                    for(var i=0; i<lis.length; i++){
+       *                        lis[i].onclick = function(){}
+       *                    }
+       *
+       *
+       *                      lis[0].onclick = function(){}
+       *                      lis[1].onclick = function(){}
+       *                      lis[2].onclick = function(){
+       *                          undefined.className = 'cur';
+       *                      }
+       *
+       *                      //随机获取不同4位验证码
+       *                      str1 = ''
+       *                      ranNumber =  Math.round(Math.random()*(m-n)+n)
+       *                      str.charAt(0-61) =
+       *                      str1 += 随机字符
+       *
+       *                      //倒计时
+       *                      //定时器
+       *                            timer1 = window.setTimeout()
+      *                             2 = window.setInterval()
+      *                             window.clearTimeout(1)
+      *                             window.clearInterval()
+      *                             for(var i=0; i<5; i++){}
+      *
+      *
+      *
+      *
+      *
+      *
+       *
+       *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+     *
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
+</script>

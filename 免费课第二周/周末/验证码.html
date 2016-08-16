@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #code {
+            width: 300px;
+            height: 200px;
+            font-family: "microsoft yahei";
+            font-size: 100px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 200px;
+            border: 5px solid #ccc;
+            margin: 30px auto;
+            cursor: pointer;
+            -webkit-user-select: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="code">1A4s</div>
+</body>
+</html>
+<script>
+    var code = document.getElementById('code');
+    var range = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //var range = "WXYZ";
+    //一共有62个字符，索引值是从0-61
+    code['onclick'] = fn; //绑定事件就是把一个函数的引用地址赋值给dom元素的事件属性
+    fn();
+    function fn() {
+        var str = "";  //'a123'
+        while (str.length < 4) {
+            //var ran = Math.round(Math.random()*(61-0)+0); //0-61之间的随机数
+            var ran = Math.round(Math.random() * 61); //0-61之间的随机数
+            var ranChar = range.charAt(ran);
+            //str = 'A6'   a
+            if (str.toLowerCase().lastIndexOf(ranChar.toLowerCase()) === -1) {
+                str += ranChar;
+            }
+        }
+        //已经在str的基础上累加上了4个随机字符
+        code.innerHTML = str;
+        //我要获取不能重复(大小写)的四位
+    }
+    //code['onclick']();
+
+
+</script>

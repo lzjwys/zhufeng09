@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>dom获取元素的方法和节点关系属性</title>
+    <style>
+        *{ margin: 0; padding: 0; }
+
+    </style>
+</head>
+<body>
+    document object model  vip  very important person  mvp  most valuable player
+    browser  object model
+    FE    front engineer
+    RD    research development
+    PM    product manager
+    <div  id="div1">
+        <ul class="ul">
+            <li></li>
+            <!--注释2-->
+            <li id="li1"></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <ul></ul>
+        <div></div>
+    </div>
+    <div id="div2" name="name">
+        <input type="text"/>
+        <input type="checkbox"/>
+        <input type="radio" name="sex"/>
+        <input type="radio" name="gener"/>
+    </div>
+</body>
+</html>
+<script>
+
+
+    var div1 = document.getElementById('div1'); //document可以理解是一个范围
+    console.log(div1);
+    var ul = div1.getElementsByTagName('ul')[0]; //类数组: 有索引有length
+    console.dir(ul)
+    /*
+    *  dom获取元素方法:
+    *  1 document.getElementById('id')
+    *         ps: 在低版本的ie中表单(input)元素的name属性会被当作id获取来
+    *         ps: context(上下文)只能是document
+    *         ps:  如果这个id不存在那么默认返回一个null
+    *         ps: 如果存在相同的id那么默认获取的是第一个
+    *  2 context.getElementsByTagName('tagName')
+    *         ps: context.getElementsByTagName("*") //获取context范围内的所有标签
+    *         ps:  获取回来的是一组元素，如果想具体到第一个必须通过索引0
+    *
+    *  3 context.getElementsByClassName('class') 通过类名获取元素 ie6-8不兼容
+    *         ps: 获取回来的也是一组元素，即使没有获取到那么也是返回一个空的类数组
+    *
+    *  4 document.getElementsByName(name) 通过name属性获取元素(表单)
+    *       ps: 在标准浏览器name也可以赋值给出了表单的元素，<div name='name'>在标准可以获取到
+    *
+    *  5 document.documentElement : html
+    *  6 document.body  : body
+    *  7 获取浏览器可视窗口的宽度和高度：没有单位
+    *        document.documentElement.clientWidth||document.body.clientWidth
+    *        document.documentElement.clientHeight||document.body.clientHeight
+    *  8  一般应用于移动端: 类似于jQuery的语法
+    *     document.querySelector() //获取一个
+    *     document.querySelectorAll() //获取所有
+    * */
+    var div1 = document.querySelectorAll('#div1');
+    var ul = document.querySelectorAll('.ul');
+    var input = document.querySelectorAll('#div2 input[type="radio"][name="sex"]');
+    console.log(input);
+    //console.log(div1);
+    console.log(ul);
+
+    /*
+    * 描述页面内节点关系的属性:
+    *      节点: 包括元素，注释，换行，空白等
+    *      parentNode: 父节点
+    *      childNodes: 所有子节点 ==> 包括元素，注释，换行等
+    *      children:  所有的元素子节点  ==> 只有标签  (不兼容)
+    *
+    *      以下的如果不存在那么返回null:
+    *      firstChild: 第一个孩子
+    *      firstElementChild：第一个元素子节点(不兼容)
+    *      lastChild: 最后一个子节点
+    *      lastElementChild: 最后一个元素子节点 (不兼容)
+    *
+    *      previousSibling: 有可能是元素,注释，换行等
+    *      previousElementSibling: 上一个元素哥哥 (不兼容)
+    *
+    *      nextSibling: 下一个弟弟节点
+    *      nextElementSibling: 下一个元素弟弟节点 (不兼容)
+    * */
+    var div1 = document.getElementById('div1');
+    console.log(div1.parentNode);
+    console.log(div1.childNodes);
+    console.log(div1.children);
+    console.log(div1.previousSibling); //
+
+    //div1.previousElementSibling
+    function prevEleSibling(ele){ //获取上一个元素哥哥节点
+        var prev = ele.previousSibling; //上一个哥哥
+        //判断上一个哥哥是不是元素，如果是元素那么就停止继续向上查找，如果不是继续向上(哥哥的哥哥)
+        while( prev && prev.nodeType != 1){ //如果我的哥哥存在，并且这个哥哥的节点类型不是元素那么才继续向上查找
+            prev = prev.previousSibling;  //每次执行都是把条件迭代
+        }
+        return prev;
+    }
+
+    /*
+                    元素     文本      注释      document
+    *  nodeType      1        3        8           9
+    *  nodeName     大写标签名  #text   #comment   #document
+    *  nodeValue     null    文本内容    注释内容    null
+    *
+    * */
+
+
+
+</script>

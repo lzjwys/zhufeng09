@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <!--
+
+    -->
+</body>
+</html>
+<script>
+    /*
+    *   定时器:
+    *       window.setTimeout(fn,1000) 1000ms之后执行fn这个函数，只执行一次fn
+    *       window.setInterval(fn,1000) 每隔1000ms都会执行一次fn函数
+    *
+    *       定时器是异步的任务队列,把所有代码执行之后才会开始执行定时器
+    *
+    *   清除定时器:
+    *        window.clearTimeout(代表第几个定时器的那个数字)
+    *        window.clearInterval(代表第几个定时器的那个数字)
+    *
+    *    定时器的返回值:  timer1...是一个数字，这个数字代表的是当前定时器是也页面中的第几个定时器。并且这个值是不断累加的
+    *
+    *    定时器不阻塞代码运行
+    *
+    *    定时器最小的时间间隔大约在10ms
+    *
+    * */
+    var n = 0;
+    function fn1(){ console.log(1) }
+    function fn2(){ console.log(2) }
+    function fn3(){ console.log(3) }
+    function fn4(){ console.log(4) }
+
+    var timer1 = window.setTimeout(fn1,1000); //执行完自己就停掉了
+    var timer2 = window.setInterval(fn2,3000); //但是这个如果不主动去停止这个定时器就一直会运行fn
+    //window.clearInterval(timer2);
+    timer2 = null; //timer2不代表数字代表null
+    var timer3 = window.setTimeout(fn3,2000);
+    var timer4 = window.setTimeout(fn4,2000);
+    console.log(timer4); //4
+
+    for(var i=0; i<100000; i++){}
+    //window.clearTimeout()
+    //window.clearInterval()
+</script>

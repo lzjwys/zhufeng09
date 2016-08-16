@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="div1" class="c1" zhufeng="zhufeng" >
+        <p id="p"></p>
+        <span></span>
+        <ul id="ul">
+            <li></li>
+            <li id="li"></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+    <div id="btn" style="width: 100px; height: 30px; background: red;"></div>
+</body>
+</html>
+<script>
+    /*
+    *   创建元素:  document.createElement('img')
+    *   添加元素:  父级.appendChild(要添加的元素),默认添加到末尾,如果是一个已经存在的元素那么就是更换位置
+    *             父级.insertBefore(要插入到元素，插入到谁前面)
+    *   删除元素:  父级.removeChild(要删除的元素)
+    *   替换元素:  父级.replaceChild(new,old)
+    *   克隆元素:  节点.cloneNode(true)
+    *
+    * */
+    var div1 = document.getElementById('div1');
+    var img = document.createElement('img');
+    var p = document.getElementById('p');
+    var ul = document.getElementById('ul');
+    ul.className = 'c1';
+    //ul.classNamehaha  =  'c2';
+    //div1.appendChild(img);
+    //div1.appendChild(p); //末尾
+    //div1.insertBefore(img,p);
+    //div1.removeChild(p);
+    div1.replaceChild(img,p);
+    var newUl = ul.cloneNode(true);
+    div1.appendChild(newUl);
+
+
+
+    /*
+    *   元素标签的行内属性的设置获取和删除:
+    *           setAttribute('属性名字','属性值'),如果属性值是对象那么会强制转化为字符串 {}.toString() = '[object Object]'
+    *           getAttribute('属性名字')
+    *           removeAttribute('属性名字')
+    * */
+    div1.setAttribute('name','tianxi');
+    console.log(div1.getAttribute('name'));
+    div1.removeAttribute('name');
+
+/*
+    div2.onclick = function (){
+        this.parentNode.removeChild(this);
+    }
+*/
+
+</script>

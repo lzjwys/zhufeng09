@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var ary = [5,1,3,4,2];
+    function quickSort(ary){
+        if(ary.length <= 1){
+            return ary;
+        }
+        //要给ary排序
+        var middleIndex = Math.floor(ary.length/2);  //数组的长度除以2再向下取整
+        //通过中间项的索引把中间项从原有数组中删除并且得到 splice
+        var middleItem = ary.splice(middleIndex,1)[0];
+        var left = [];
+        var right = [];
+        //如果比当前项大的就放在右面数组，否则放在左边
+        for(var i=0; i<ary.length; i++){
+            if(ary[i]>middleItem){
+                right.push(ary[i]);
+            }else{
+                left.push(ary[i]);
+            }
+        }
+        return quickSort(left).concat(middleItem,quickSort(right));
+    }
+    console.log(quickSort(ary));
+
+
+</script>

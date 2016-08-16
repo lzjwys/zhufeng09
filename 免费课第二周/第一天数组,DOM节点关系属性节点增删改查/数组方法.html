@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>数组的常用方法</title>
+    <style>
+        div{ margin: 0; }
+    </style>
+</head>
+<body>
+    <div style="width: 100px; height: 100px; background: red;"></div>
+<!--
+    基本数据类型: number: parseInt,parseFloat,isNaN,Number()
+                 string: 5+'5' = '55'
+                 boolean: true/false  !   !!
+                 null:
+                 undefined:
+                 false: 0 NaN, "" , null, undefined
+                 typeof: 'number','string','boolean','object','undefined','function'
+     引用数据：
+                 对象:   堆(存值) 栈()
+                        var obj = {};   obj.name = 'tianxi';
+                                        obj['name'] = 'tianxi
+                         []  数组
+                         newData()  时间
+
+                        /^\d\w$/  正则
+                        ....
+                 函数:
+-->
+
+</body>
+</html>
+<script>
+    /*
+     *   数组(Array)的常用方法: //数组是一个特殊的对象
+     *      属性length:  数组里有多少项
+     *      索引index: 数组每一项前面的数字属性，一般通过索引来获取具体的数组项,索引都是从0开始的，索引比第几项小1,最后一项的索引是a.length-1
+     *      向数组的末尾添加： a[a.length] = '值'
+     *      对于跳跃式添加数组项目，用undefined来补充的
+     *      length--就可以删除数组的最后一项
+     *      可以通过a.length属性遍历数组-
+     *
+     * */
+    /*var a = [1, 2, 3,"x"]; //a.length
+    a[0] = 'y';
+    a[a.length-1] = 'z';
+    a[a.length] = 'zz'; //向数组的末尾追加一项
+    a[a.length+3] = 'zzzz';
+    console.log(a);
+    a.length--;
+    console.dir(a);
+    for(var i=0; i< a.length; i++){ //3
+        console.log(a[i]); // i = 0, i = 1, i=2   a[0]  a[1]  a[2]
+    }*/
+
+    /*
+    *   1 方法的作用  2 方法的参数  3 返回值  4  原有数组是否改变
+    *
+    *   增删改查
+    *   push  1 向数组的末尾添加项
+    *         2 要增加的数组项(a,b) 如果是多项用逗号隔开
+    *         3 数组的新长度
+    *         4 原有数组改变
+    *
+    *   unshift 1 向数组的开头添加项
+    *           2 要增加的数组项(a,b) 如果是多项用逗号隔开
+    *           3 数组的新长度
+    *           4 原有数组改变
+    *
+    *   shift   1 删除数组的第一项
+    *           2 不需要参数
+    *           3 删除数组项
+    *           4 原有数组改变
+    *
+    *    pop    1 删除数组的最后一项
+    *           2 不需要参数
+    *           3 删除数组项
+    *           4 原有数组改变
+    *
+    *    splice  1 删除数组项
+    *            2 splice(n) 从索引n开始删除到末尾
+    *              splice(n,m) 从索引n开始删除m个
+    *              splice(n,m,x) 从索引n开始删除m个，并且用x去替换删除项的位置
+    *              splice(n,m,x,y)  从参数m后的所有参数都是用来替换删除项目的
+    *               shift ==> splice(0,1) 从索引0开始删除1个
+    *               pop ==> splice(length-1,1);
+    *               push ==> splice(length,0,'item')
+    *               ps: splice(n,0,x) ==> x默认添加到n的前面
+    *               unshift ==> splice(0,0,x)
+    *               ary.splice(0) ==> 可以利用这个的返回值达到克隆数组的目的
+    *
+    *     slice  1 复制数组
+    *            2  slice()   ==> slice(0) 从开始复制到末尾
+    *               slice(n)  从索引n开始复制到末尾
+    *               slice(0)  克隆数组
+    *               slice(n,m) 从索引n开始到索引m，但是不包含m
+    *            3  新复制的数组
+    *            4  原有数组不变
+    *
+    *     数组拼接
+    *           concat  1 拼接数组
+    *                   2 要拼接的数组或者数组项，如果是多个用逗号隔开
+    *                   3 拼接好的数组
+    *                   4 原有数组不变
+    *
+    *           join   1 把数组中的每一项按照指定的分割符拼接成字符串
+    *                  2 分隔符(字符串),如果不写参数默认是','
+    *                  3 拼接好的字符串
+    *                  4 原有数组不变
+    *                  eval: 可以把字符串当作js表达式去执行,也就是去引号的作用
+    *
+    *      数组排序:
+    *          reverse   1 倒序数组
+    *                    2 不用参数
+    *                    3 倒序过后的原有数组
+    *                    4 原有数组改变
+    *
+    *           sort     1 按照指定的规则排序
+    *                    2     升序: function (a,b){ return a-b }
+    *                          降序: function (a,b){ return b-a }
+    *                          ps: 这个匿名函数参数执行的次数和数组的长度有关
+    *                    3 排好序的数组
+    *                    4 原有数组改变
+    *
+    *
+    *       兼容性不好:  在ie6-8
+    *           indexOf  1 查看数组项在数组中出现的索引位置
+    *                    2 要查看的数组项
+    *                    3 如果出现过就返回对应的索引位置，否者返回-1
+    *                    4 原有数组不变
+    *
+    *           lastIndexOf  1 查看数组项在数组中最后出现的索引位置
+     *                       2 要查看的数组项
+     *                       3 如果出现过就返回对应的最后一次次出现的索引位置，否者返回-1
+     *                       4 原有数组不变
+     *
+     *
+     *          forEach  1 循环遍历数组的每一项
+     *                   2 参数也是一个函数
+     *                   3 返回值是undefined
+     *                   4 原有数组不变
+     *
+     *            map    1 和forEach差不多，都是用来循环遍历数组的
+     *                   2  参数也是一个函数(item,index,originAry)
+     *                   3  是匿名函数参数的return的值组成的新的数组，数组的长度和原来相同
+     *                   4 原有数组不变
+     *
+    *
+    * */
+
+    //push
+/*
+    var ary = [1,2,3];
+    var res = ary.push(4,"x");
+    console.log(ary); //[1,2,3,4,'x']
+    console.log(res); //5
+*/
+
+    //unshift
+    var ary = [1,2,3];
+    var res = ary.unshift(0); //[0,1,2,3]
+    console.log(ary);
+    console.log(res);
+
+    //shift
+    var ary = [1,2,3];
+    var res = ary.shift();
+    console.log(ary); //[2,3]
+    console.log(res); //删除的数组项1
+
+    //pop
+    var ary = ['x','y','z'];
+    var res = ary.pop();
+    console.log(ary); //['x','y']
+    console.log(res); //'z'
+
+    //splice
+
+    var ary = [1,2,3,'x','y','z'];
+    //var res = ary.splice(2,3);
+    //var res = ary.splice(2); //从索引2删除到末尾
+    var res = ary.splice(3,1,'haha');
+    console.log(ary); //[1,2,'z']
+    console.log(res); //[3,'x','y']
+
+    var ary = [1,2,3];
+    //var res = ary.splice(ary.length,0,'xx');
+    ary.splice(0,0,0);
+    console.log(ary);
+
+
+/*
+    alert('a');
+    confirm("你真要关闭我么？")
+    prompt("hahaha")
+*/
+
+
+    //slice
+    var ary = [1,2,3,'x','y','z'];
+    var res = ary.slice(2,5);
+    console.log(res); //[3,'x','y','z']
+    console.log(ary); //
+
+    //concat
+    var ary1 = [1];
+    var ary2 = ['x'];
+    var res = ary1.concat(ary2,['y']);
+    console.log(res);
+
+    //join
+    var ary = [1,2,3,'x','y','z'];
+    ary = [1,2,3,4,5,6];
+    var res = ary.join("+"); //"1+2+3+4+5+6"
+    //eval ==> 把字符串当作js表达式去执行
+    console.log(eval(res));
+    console.log(res);
+
+    //reverse
+    var ary = [1,2,3,4];
+    var res = ary.reverse();
+    console.log(ary);
+    console.log(res);
+    console.log(res === ary);
+
+    //sort
+
+    var ary = [4,3,2,5,10];
+    var res = ary.sort(function(a,b){
+        console.log(a,b); //分别里面的项
+        return a-b;
+    });
+    console.log(res);
+
+    //indexOf
+
+    var ary = [123,456,'xyz',789,'xyz'];
+    //var res = ary.indexOf('xyz');
+    var res = ary.lastIndexOf('xyz');
+    console.log(res);
+
+
+    //forEach
+    var ary = ['a','b','c']; //length:3
+/*
+    for(var i=0; i< ary.length; i++){ //遍历数组
+        console.log(ary[i]);
+    }
+*/
+    var res = ary.forEach(function (item,index,originAry){
+        //console.log(a,b,c);
+        //console.log(arguments[0],arguments[1],arguments[2]);
+        //可以对item和index还有originAry做赋值等操作了
+    });
+    console.log(res);
+
+
+    //map
+    var ary = [1,2,3,4,5];
+    var res = ary.map(function (item,index){
+        //item是数组的每一项
+        //index是数组每一项对应的索引
+        return 1000/*item*index*/; //1*100  2*100 ...5*100
+    });
+    console.log(res);
+
+
+
+
+
+
+
+
+   /* function sum(num1,num2){
+        cosole.log(arguments);  //[1,2,3,4,5]
+    }
+    sum(1,2,3,4,5)
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //函数参数
+    function fn(fn){
+        //console.log(fn); //undefined
+        if(typeof fn == 'function'){ //就能保证fn的参数传进来的一个函数
+            fn(); //让传进来的这个函数运行
+        }
+    }
+
+    fn(function (){
+        //alert('fn');
+    });
+
+
+
+    //reverse,sort(function (a,b){ return b-a; })
+    //indexOf,lastIndexOf
+    //forEach(function (item,index,ary){})
+    //map(function (item,index,ary){ return  item*index })
+    //unshift()  splice(0,0,x,y,z)
+    //push()     splice(ary.length-1+1,0,x,y,z)
+    //shift()
+    //pop()
+    //splice(n) splice(0)==>
+    //splice(n,m)
+    //splice(n,m,x)
+    //slice()
+    //slice(8)
+    //slice(n,m)
+    //concat()
+    [1,2,3].concat([]) //  克隆数组   [1,2,3].concat()
+    //join() eval
+
+
+
+
+
+
+
+
+
+
+
+</script>

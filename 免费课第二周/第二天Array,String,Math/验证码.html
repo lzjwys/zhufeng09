@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>验证码</title>
+    <style>
+        *{ margin: 0; padding: 0; }
+        .codeBox{ width: 300px; height: 200px; border: 3px solid #ccc; border-radius: 5px; box-shadow: 3px 3px 10px #111; margin: 30px auto; font-family: microsoft yahei; font-size: 100px; line-height: 200px; text-align: center; font-weight: bold; -webkit-user-select: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div id="codeBox" class="codeBox">H19j</div>
+</body>
+</html>
+<script>
+    var codeBox = document.getElementById('codeBox');
+    //设定验证码每一个随机字符的范围
+    var strRange = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //这个取值范围的索引是从0-61
+    function change(){
+        var codeBoxHtml = ''; //"A856" + "a" 'a'  如何判断  a8  a
+        for(var i=0; i<4; i++){
+            var ranNum = getRandom(0,61); //获取0-61之间的随机整数
+            var ranChar =  strRange.charAt(ranNum);
+            codeBoxHtml += ranChar;
+        }
+        codeBox.innerHTML = codeBoxHtml;
+    }
+    change();
+    codeBox.onclick = change;
+
+    //绑定事件的本质就是把一个函数的引用地址(空间地址)赋值给dom对象的事件属性
+
+    //只要相同的动作或者操作出现两次或者两次以上，我们就有必要把这些代码封装成一个函数
+
+    //不能获取相同的并且大小写也不能相同:
+
+    function getRandom(n,m){
+        n = Number(n);
+        m = Number(m);
+        if(isNaN(n) || isNaN(m) ){
+            return Math.random();
+        }
+        if(n>m){
+            var temp = n;
+            n = m;
+            m = temp;
+        }
+        return Math.round(Math.random()*(m-n)+n);
+    }
+</script>

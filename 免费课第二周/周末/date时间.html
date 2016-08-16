@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Date</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+/*
+    var ary = []; //字面量的赋值方式
+    var ary = new Array(); //实例创建方式
+*/
+    var date = new Date(); //用实例创建方式返回的永远都是对象
+    var date1 = new Date('1970/01/01 08:00:01'); //把时间格式的字符串转化为一个时间格式的对象
+    var date1 = new Date('2016/08/14 18:00:00'); //把时间格式的字符串转化为一个时间格式的对象
+     //console.log(date); //object
+    // Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
+    // January,February,March,April,May,June,July,August,September,October,November,December
+    console.log(date1.getFullYear()); //年
+    console.log(date1.getMonth()); //月  [0-11] 月份比实际小1
+    console.log(date1.getDate()); //日
+    console.log(date1.getHours()); // 时 h
+    console.log(date1.getMinutes()); //分 m
+    console.log(date1.getSeconds()); //秒 s
+    console.log(date1.getMilliseconds()); //毫秒  ms  1s = 1000ms
+    console.log(date1.getDay()); //星期  [0-6]
+    console.log(date1.getTime()); // 1970年1月1日8点0分0秒 距离date的ms数
+    //'日一二三四五六'
+
+
+
+
+
+
+
+</script>

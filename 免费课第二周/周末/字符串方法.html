@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    var str = 'zhufengpeixun';
+    //console.log(str.length); //字符串的length属性代表的是字符串中有多少个字符
+    //console.log(str[str.length-1]); //字符串也有索引属性，也可以通过索引获取字符
+    //字符串方法
+
+    //通过索引获取指定字符或者指定字符的编码(ASCII)
+    var res = str.charAt(1000); //str[0]  通过索引获取字符   *
+    console.log(res);  //如果索引值超出了范围那么获取回来的""空字符串
+
+    var res = str.charCodeAt(0); //获取对应索引字符的编码
+    console.log(res);
+
+    //截取字符串
+    var str = 'zhufengpeixun';
+    //var res = str.substr(3,3);  *
+    var res = str.substr(0);
+    //substr(n,m) 从索引n开始截取m个 ==> 参数的用法和数组的splice类似
+    //substr(n) 从索引n开始截取到末尾
+    //substr() 如果没有参数也是截取全部
+
+    //substring  *
+    var res = str.substring(3,6);
+    var res = str.substring();
+    //substring(n,m) 从索引n开始到索引m，但是不包含m ==> 参数的用法和数组的slice类似
+    //substring(n) 从n复制到末尾
+    //substring()  是复制整个字符串
+
+    //slice
+    var res = str.slice(-3,-1); //slice(10,12)
+    //slice方法和substring的用法基本相同，但是slice方法支持负数索引，默认在负数参数的基础上累加上了字符串的长度
+    console.log(res);
+
+    //转化大小写
+    // toUpperCase()  转化成大写
+    // toLowerCase()  转化成小写
+
+    //查看字符的字符串中出现的索引位置,如果出现过那么就返回对应的索引，如果没有出现过返回-1
+    //indexOf 兼容
+    var str = 'zhufengpeixun';
+    var res = str.indexOf('z'); //0
+    console.log(res);
+    //lastIndexOf 最后一次出现的索引位置
+    var str = 'zhufengpeixun';
+    var res = str.lastIndexOf('feng');
+    console.log(res); //3
+
+    //window.navigator.userAgent
+    //"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.4 Safari/537.36"
+    //window.navigator.userAgent.indexOf('Chrome')
+    //"MSIE 7"
+    //"MSIE 8"
+
+
+    //replace(old,new) 替换字符串
+    var str = 'zhufeng2015peixun2016';
+    //str = str.replace('2015',"二零一五"); //replace是返回一个新的替换好的字符串
+    //如果replace的第二个参数是函数，那么是用函数返回值去替换原有字符串
+    // 第一个参数还可以是一个正则
+    str = str.replace('2015',function (item,index,oriStr){
+        //item:在原有字符串中匹配到的字符
+        //index: 是item的索引
+        //oriStr： 原有字符串
+        console.log(arguments); //["2015", 7, "zhufeng2015peixun2016"]
+        return "二零一五";
+    });
+    console.log(str);
+
+
+    //split  把字符串拆分成数组 和数组的join方法是完全相反的
+    var str = 'zhufeng$2016';
+    var res = str.split("$");
+    console.log(res);
+
+    //match  正则
+
+    //12:  split,indexOf,toLowerCase(),charAt(index),replace(old,fn),substring,substr
+
+</script>

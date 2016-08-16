@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="div1" class="" style="" teacher="tianxi"    >
+        <img src="" alt=""/>
+        <ul id="ul1">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <p></p>
+    </div>
+    <script>
+        /*
+        *   document.createElement('tagName')  创建一个元素
+        *   父级.appendChild(要添加的元素)  //动态的向页面内添加元素
+        *   ps: 对于一个已经存在的元素就是更换元素在页面内的位置
+        *   父级.insertBefore(要加入的新节点,插入到哪个节点前面)
+        *   父级.removeChild(要删除的子节点);
+        *   父级.replaceChild(new,old);
+        *   克隆节点: ul1.cloneNode(true) 是否深度克隆(包含子孙后代一起克隆)
+        * */
+        var div1 = document.getElementById('div1');
+        var ul1 = document.getElementById('ul1');
+        //创建一个div标签，并且把它添加到div1的dom结构中
+        var oDiv = document.createElement('div');
+        oDiv.style.width = '100px';
+        oDiv.style.height = '100px';
+        oDiv.style.backgroundColor = 'red';
+        //div1.appendChild(oDiv);
+        //div1.insertBefore(oDiv,ul1); //把刚刚创建的oDiv插入到ul1的前面
+        ///iv1.appendChild(ul1);
+        //删除节点
+        //div1.removeChild(ul1);
+        //div1.replaceChild(oDiv,ul1); //用oDiv替换ul1
+        var  newUl1 = ul1.cloneNode(true); //克隆的时候是否包括子孙后代,默认是false
+        div1.appendChild(newUl1);
+        /*
+        *  js中获取和设置标签行内属性: 都会改变html结构
+         *      setAttribute("属性名","属性值")
+         *      getAttribute("属性名字")
+         *      removeAttribute("属性名字")
+        * */
+        div1.setAttribute('studentNumber',"50"); //通过js写在行内
+        console.log(div1.getAttribute('teacher')); //通过js获取
+        div1.removeAttribute('studentNumber');
+    </script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>倒计时</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #time {
+            width: 280px;
+            height: 40px;
+            padding: 0 10px;
+            border: 2px solid #ccc;
+            background: lightpink;
+            margin: 30px auto;
+            line-height: 40px;
+            text-align: center;
+            font-size: 26px;
+        }
+    </style>
+</head>
+<body>
+<div id="time">距离下课时间 <span>01:08:05</span></div>
+</body>
+</html>
+<script>
+
+    var time = document.getElementById('time');
+    var span = time.getElementsByTagName('span')[0];
+    //window.setTimeout(record,1000); //每隔1000ms执行一次record
+    var timer = null;
+    function record() {
+        window.clearTimeout(timer);
+        var curDate = new Date(); //获取的当前时间
+        var targetDate = new Date('2016/08/16 18:01:00'); //目标时间
+        //计算这两个时间距离1970ms数
+        var curDate1970 = curDate.getTime();
+        var targetDate1970 = targetDate.getTime();
+        //求出时间差的ms数
+        var timeMs = targetDate1970 - curDate1970;
+        //需要把timeMs换算成小时分钟秒
+        var h = Math.floor(timeMs / (1000 * 3600));
+        //换算分钟，需要把小时所占用的ms数减出去,然后再换算成分钟
+        var m = Math.floor((timeMs - h * 3600 * 1000) / (1000 * 60));
+        //换算秒，把小时和分钟所占用的ms数都减去，然后再计算成s
+        var s = Math.floor((timeMs - h * 3600 * 1000 - m * 60 * 1000) / 1000);
+        //01:08:05
+        if(h+m+s == 0 ){
+            span.innerHTML = "00:00:00"
+            return;
+        }
+        span.innerHTML = addZero(h) + ':' + addZero(m) + ':' + addZero(s);
+        //timer = window.setTimeout(record,1000);
+
+        timer = window.setTimeout(arguments.callee,1000);
+        console.log(timer);
+    }
+
+    function addZero(n) {
+        return n < 10 ? '0' + n : n;
+    }
+
+    time.onclick = function (){
+        if(!timer){  //null
+            timer = window.setTimeout(record,1000);
+        }else{
+            window.clearTimeout(timer);  //即使把定时器清除也只是把定时器的任务清除掉。
+            timer = null; //清完定时器要把timer赋值为null，为了保证下次的判断能顺利进行
+        }
+    }
+
+
+</script>
