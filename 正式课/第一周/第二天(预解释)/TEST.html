@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    // total(undefined) sum(函数的引用地址)
+    console.log(total); //undefined
+    var total = 0; //total = 0 全局变量
+    function sum(num1,num2){
+        //var num1 = 10  var num2 = 20
+        console.log(total); //undefined
+        var total = num1 + num2; //这个total是当前私有作用域内的私有变量,这是赋值过程 total=30
+        console.log(total); //30
+    } //直接跳过
+    sum(10,20); //函数的执行: 1 私有作用域 2 形参赋值 3 预解释当前作用域  4 代码执行
+    console.log(total); //0
+
+    //undefined undefined 30 0
+    //undefined undefined 30 0
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

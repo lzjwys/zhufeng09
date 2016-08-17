@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //var num = 1200; //全局变量 num=1200
+    function sum(){ //sum函数运行完的结果就是留下了一个堆内存地址
+        //var num = 120;
+        return function (){
+            //var num = 12;
+            console.log(num);
+        }
+    }
+    var f = sum(); //f现在就是一个地址,就是sum返回的那个匿名函数的地址
+    f(); //f执行就是匿名函数执行
+
+    /*
+    *   作用域链:
+    *       如果当前作用域内使用的变量不存在那么到上一级作用域去查找，如果没有继续到上一级作用域查找，一直查找到全局作用域window，如果还没有报错！！！，我们把这种查找机制就可以叫做作用域链
+    *       ps: 全局变量任何时候都可以被访问，所以不安全。
+    *
+    *
+    *       闭包。。。。
+    *       全局带var和不带var的区别。。。
+    *
+    *
+    * */
+
+
+
+
+
+</script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    var ary = [100, 200]; //全局的ary是一个引用地址
+    function fn(ary) {
+        ary[ary.length] = 300;
+        var ary = ary.slice(); // 把一个新数组复制ary变量 ==> 把ary这个私有变量重新赋值，ary已经不再代表以前的数组了，是一个新数组的引用地址了
+        ary[0] = [100];
+        ary.length--;
+        console.log(ary);
+    }
+    fn(ary); //函数的运行: 1 2 3 4
+    console.log(ary);
+    //[[100],200] [100,200,300]
+
+
+
+
+
+
+    var ary = [100, 200]; //xxxfff000  [100,200,300]
+    function fn(ary) {
+        //var ary = xxxfff000
+        //私有的ary和全局的ary公用一个数组的堆内存地址
+        ary[ary.length] = 300; //在数组的末尾添加一项
+        var ary = ary.slice(); //由于slice是返回一个新数组，所以是把私有的ary变量的值赋值为一个新的数组的地址     [100,200,300]
+        ary[0] = [100]; //[[100],200,300]
+        ary.length--; //[[100],200]
+        console.log(ary); //[[100],200]
+    }
+    fn(ary);
+    console.log(ary); //[100,200,300]
+
+
+
+
+
+    console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+
+
+    var ary = [10,20,30]; //[10,20]
+    function fn(ary){
+        ary.length--;
+        ary = []; //从这行代码开始私有的ary再也不和全局的ary公用一个地址了，，我自己使用这个空数组的引用地址
+        ary[ary.length] = 0; //都是向空数组中添加一项
+        console.log(ary); //[0]
+    }
+    fn(ary);
+    console.log(ary); //[10,20]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
