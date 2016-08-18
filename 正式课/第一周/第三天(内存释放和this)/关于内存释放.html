@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="div1" style="width: 100px; height: 100px; background: red;"></div>
+</body>
+</html>
+<script>
+    //对于内存(堆，栈)如果没有被占用那么浏览器就会找个合适的时间点去释放,否则被占用的内存是不可以释放的
+    var obj1 = {name:'tianxi',age:30}; //obj1占用着这个对象的堆内存
+    var obj2 = obj1; //obj2和obj1同时占用这个堆内存地址
+    obj1 = null; //把obj1重新赋值,原来占用着对象的堆内存，重新赋值之后就不占用了
+    var obj3 = {
+        xx:obj2 //obj3的xx属性也占用着这个堆内存地址,堆内存的占用不一定必须是变量也可以是一个对象的属性
+    };
+    obj2 = null; //现在这个对象的内存地址再也没有人占用了,那么浏览器就会主动去释放这个内存
+    //把obj2=null这就是一个主动释放的过程
+
+
+    //栈内存(作用域)释放问题: 基本数据类型都存在栈内存
+    /*
+    *   栈内存不释放:
+    *       1 函数执行的时候，如果函数中的某一部分(引用数据类型)如果被函数外的变量或者对象的属性占用，那么函数执行时产生的私有作用域(栈)不会被释放，从而这个作用域内的私有变量和函数也不会被释放,那么永远都是保存的最后的被修改的那个值
+    *       2 再给dom元素绑定事件的时候，把一个自运行函数的返回值赋值给元素的事件属性，同样符合被对象占用的内存不释放条件
+    *       3 暂时不释放 ： 函数运行的返回值仍然是一个函数立刻执行,属于暂时不释放的条件，执行结束之后就会被释放掉
+    *
+    * */
+
+
+    //1 内存不释放
+    var num = 1200;
+    function fn(){
+        var num = 120; //这个num=120没有被释放我就可以理解为被存在这个私有的作用域中了
+        return function (){
+            console.log(num)
+        }
+    }
+    var f = fn(); //f占用着fn()运行的返回值
+    f();
+
+    //2 内存不释放
+    var div1 = document.getElementById('div1');
+
+    (function (){ //闭包的方式处理事件
+        var x = 100;
+        div1.onclick = function (){
+            console.log(++x);
+        }
+    })();
+
+    for(var i=0; i<3/*lis.length*/; i++){
+        (function (i){ // 0 1 2
+           /* var i=0;
+            var i=1;
+            var i=2;*/
+            /*lis[i].onclick = function (){
+                lis[i].className = 'cur';
+            }*/
+        })(i); //0 1 2
+        console.log(i); //0 1 2
+
+    }
+
+    div1.onclick = (function (){
+        var x = 100; //101 102 103 104
+        return function (){
+            console.log(x++);
+        }
+    })()
+
+    //3 暂时不释放
+    console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+    function fn(num){
+        //var num = 10; 11 12 13
+        return function (n){
+            console.log(n + ++num);
+        }
+    }
+    var f = fn(10);
+    f(3); //14
+    fn(9)(5);
+    f(6); //18 18
+    f = null;
+    f = fn(10);
+    f(10); //? 21
+    f(11);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

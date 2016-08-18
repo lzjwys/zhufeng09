@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1{ width: 100px; height: 100px; background: green; }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+<!--
+   this用法:  在全局作用域中的this是window
+        1 在事件绑定的函数中的this就是事件发生的时候触发事件的元素
+        2 函数在执行的时候，函数中的this就是调用函数的主体，其实就是看函数执行的时候前面有没有"."，如果有"."那么点前面是谁this就是谁。如果没有那么就是window
+        ps: this是谁根本就不用看在哪里定义的，就看在哪里执行的
+        ps: 只要this被函数包括了那么this就变了
+
+        3 自运行函数中的this永远是window
+        4 定时器中的this也是window
+
+
+
+        5 构造函数中的this是当前实例
+        6 call和apply可以强制改变this
+
+-->
+</body>
+</html>
+<script>
+    // 1 事件函数中的this
+    var div1 = document.getElementById('div1');
+    div1.onclick =  function (){
+        console.log(this);
+    }
+    //console.log(this);  window
+
+    // 2 函数中的this就看"."前面是什么
+    function fn(){
+        console.log(this);
+    }
+
+    var obj = {
+        age: 30,
+        fn: fn //属性名: 属性值是fn函数的引用地址
+    };
+
+    obj.fn(); //obj
+    fn(); //window
+
+    //3 自运行函数中的this永远是window
+    (function (){
+        console.log(this);
+    })()
+
+    var person = {
+        name:'tianxi',
+        fn : (function (){
+            console.log(this);
+        })()
+    }
+    //person.fn(); // error
+
+
+
+
+
+</script>

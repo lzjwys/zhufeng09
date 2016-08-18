@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body></body>
+</html>
+<script>
+    var num = 12; //全局 window.num = 12 ==> window.num+=3 ==> 15 ==> 第一次执行fn的时候，这个15变成了14  window.num -= 1
+    var obj = { //obj存储就是这个对象的地址
+        num: 3, //obj.num = 3,第二次执行obj.fn的时候， obj.num -= 1 ==> 2
+        fn: (function (num) {
+            // var num = 12;
+            num += 2; // num = 14
+            this.num += 3; //自运行函数中的this永远是window==> window.num += 3
+            var num = 5; // num = 5;  这个作用域内的私有num是5 ，第一次fn执行的时候把num从5 -= 1变成了4   num = 4 ，第二次执行obj.fn的时候，这个4又被改了一次  num-=1   ==> 3
+            return function () {
+                num -= 1; //第一次fn执行把上一级作用域的num修改了
+                this.num -= 1; // fn()执行this是fn前面没有点，this是window ==> window.num -= 1 ,第二次执行的时候obj.fn()的时候，this是obj ==> obj.num -=1
+                console.log(num); //私有没有，上一级获取到刚刚被修改过的4 .打印4
+            } //obj.fn就是这个匿名函数，被对象的obj.fn属性占用，导致这个自运行函数运行产生的作用域没有释放，从而这个作用域内私有的num=5被保存下来了
+        })(num) //12
+    };
+    var fn = obj.fn; //fn和obj.fn共用自运行函数返回的那个匿名函数的内存地址
+    fn(); //4
+    obj.fn(); //3
+    console.log(num,obj.num); //14 2
+
+
+</script>
