@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function fn(){
+        console.log(this);
+    }
+    var o = {
+        age: 30,
+        fn : function (){
+            console.log(this); //o
+            fn(); //window
+        }
+    }
+
+    o.fn(); //
+</script>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    /*
+    *   var,function
+    *
+    *
+    *
+    *
+    *
+    * */
+    console.log(num);
+    var num1 = 8;
+    console.log(xx);
+    function num(){
+        console.log(window.num1);
+        function xx(){}
+    }
+    num();
+    console.log(num1);
+    var xxx;
+    (function (){
+        ~function (xxx){
+           xxx = 100;
+        }()
+    })()
+    console.log(xxx); //100
+
+    var y = function fn(){}
+    if("num" in window){ //
+        var num = 1000;
+    }
+    (function xxx(){})()
+
+    function fn(f){
+        //var f = 10;
+        var f = 10000;
+        return (function y(){
+            //return 9;
+        })()
+        (function z(){})()
+    }
+    var res = fn(10); // 1 2 3
+
+    function fn(){console.log(1)}
+    var fn = 100;
+    fn();//
+    function fn(){ console.log(2)}
+
+    ///////////////////////////////////////////
+    var ary = [100];
+    function fn(ary){
+        ary[ary.length] = 200;
+        ary = [];
+        ary[ary.length] = 100;
+        console.log(ary);
+    }
+    fn(ary);
+    console.log(ary);
+    //[100],[100,200]
+
+
+
+
+</script>
