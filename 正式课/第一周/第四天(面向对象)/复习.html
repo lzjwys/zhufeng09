@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+
+
+    /*
+     for(var  i=0; /!*1 2 3*!/ i<lis.length; i++){ //3
+     (function (i){
+     // var i=0; var i=1; var i=2;
+     lis[i].onclick = function (){
+     //var i
+     for(var j=0; j<lis.length; j++){
+     lis[j].className = "";
+     divs[j].className = "";
+     }
+     /!*this.index*!/
+     lis[i].className = 'cur';
+     divs[i].className = 'cur';
+     }
+     })(i)
+     }
+     */
+
+    function fn(i) {
+        return function (n) {
+            console.log(n + ++i);
+        }
+    }
+    fn(); // 1
+    var f1 = fn(2); //2
+
+    var f2 = fn(2); //3
+
+    f2(3)
+    f1(2)
+    fn(1)(1)
+    f1(5)
+    fn(2)(3)
+    f1(6)
+    f1 = null;
+    f2(3)
+
+
+    /*
+     *   1 事件中的this
+     *   2 函数中this,函数执行 看点
+     *   3 自运行函数是window
+     *   4 定时器中的this window
+     *
+     * */
+    var num = 10; //12 13 14 15
+    var obj = {
+        num: 3, //4
+        fn: (function (num) { // var num = 11 12 13 14 15
+            num += 1;
+            this.num += 2;
+            return function () {
+                this.num += 1;
+                num++;
+                return function () {
+                    this.num += 1;
+                    num++;
+                    console.log(num);
+                }
+            }
+        })(num)
+    }
+    var f = obj.fn;
+    f()();  //13
+    obj.fn()();  //15
+    console.log(num, obj.num);
+    // 13   15     15   4
+
+
+
+
+</script>

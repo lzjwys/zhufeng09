@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="tab1">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="tab2"> </div>>
+
+</body>
+</html>
+<script>
+    /*
+    *   单例模式: 其实就是一个对象,可以解决函数名字互相冲突的问题，又可以叫做命名空间， nameSpace,在开发过程中比较常用的一种方式。
+    *   单例模式属性函数和属性函数之间的调用可以使用this.属性名字
+    * */
+    var internet = {
+        copy : function (){
+            console.log('');
+        },
+        edit: function (){
+            console.log(this); // internet
+            this.copy(); //
+        },
+        eat : function (){
+            this.writeJs();
+        },
+        writeJs : function (){
+
+        }
+    };
+    internet.edit(); //在这执行的时候,edit函数中的this是谁呀
+
+    var fashion = {
+        copy: function (){
+
+        },
+        edit : function (){
+
+        }
+    };
+
+    tianxi.copy();
+    wangchen.copy();
+
+
+
+
+
+
+
+
+</script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    function Fn(){
+        this.x = 100;
+    }
+    Fn.prototype.getX = function (){
+        console.log(this.x);
+    }
+    var f2 = new Fn()
+    f2.getX();
+
+    //
+
+
+
+    Fn.prototype.getY = function (){}
+    Fn.prototype.getZ = function (){}
+    Fn.prototype.getZ = function (){}
+    Fn.prototype.getZ = function (){}
+    Fn.prototype.getZ = function (){}
+    Fn.prototype.getZ = function (){}
+    Fn.prototype.getZ = function (){}
+    Fn.prototype.getZ = function (){}
+    Fn.prototype.getZ = function (){}
+    Fn.prototype.getZ = function (){}
+
+
+    //批量设置公有属性和方法, 坏处constructor丢失。我们需要自己来补上
+    Fn.prototype = {
+        constructor : Fn,
+        getX : function (){
+            console.log(this.x);
+        },
+        getY : function (){},
+        getZ : function (){}
+    }
+
+    var f1 = new Fn();
+
+    f1.getX(); //100
+    Fn.prototype.getX(); //undefined
+    console.log(f1.constructor); //构造函数   function Object(){  [native code]}
+
+</script>
