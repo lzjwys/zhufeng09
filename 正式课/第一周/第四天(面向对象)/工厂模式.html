@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    // 工厂模式就是一个函数,又叫函数的封装
+    function Table(width,height){
+        var table = {};
+        table.width = width;
+        table.height = height;
+        table.copy = function (){
+
+        }
+        table.edit = function (){
+
+        }
+        return table;
+    }
+    var table1 = Table(100,100);
+    console.log(table1);
+    var table2 = Table(200,200);
+    console.log(table2);
+    var table3 = Table(300,300);
+</script>
