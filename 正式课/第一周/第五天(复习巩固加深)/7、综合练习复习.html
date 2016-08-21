@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //    var num = 10;
+    //    var obj = {
+    //        num: 3,
+    //        fn: (function (num) {
+    //            num += 1;
+    //            this.num += 2;
+    //            return function () {//->xxxfff111
+    //                this.num += 1;
+    //                num++;
+    //                return function () {
+    //                    this.num += 1;
+    //                    num++;
+    //                    console.log(num);
+    //                }
+    //            }
+    //        })(num)//->把全局作用域下的num变量的值赋值给自执行函数的形参
+    //    };
+    //    var f = obj.fn;
+    //    f()();//->先执行f,把f执行的返回结果紧接着在执行
+    //    obj.fn()();//->先让obj.fn执行把执行后的返回结果紧接着在执行
+    //    console.log(num, obj.num);
+
+    //var obj={name:'珠峰'};
+    //->首先开辟一个新的内存空间 xxxfff000
+    //->然后向内存空间中分别的存储属性名和属性值 name:'珠峰'
+    //->最后在把空间的地址赋值给obj
+    //    var obj2 = {
+    //        name: '珠峰',
+    //        fn: (function () {
+    //
+    //        })(obj2.name)//->Uncaught TypeError: Cannot read property 'name' of undefined 此时我们的内存空间中的属性还没有赋值完成,所以还没有把内存地址赋值给obj2呢,也就是obj2还没有name这些属性呢
+    //    };
+
+
+    var num = 10;
+    var obj = {
+        num: 3,
+        fn: (function () {
+            num += 1;
+            this.num += 2;
+            return function () {
+                this.num += 1;
+                num++;
+                return function () {
+                    this.num += 1;
+                    num++;
+                    console.log(num);
+                }
+            }
+        })()
+    };
+    var f = obj.fn;
+    f()();
+    obj.fn()();
+    console.log(num, obj.num);
+</script>
+</body>
+</html>
