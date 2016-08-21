@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var num = 10;
+    var obj = {
+        num: 3,
+        fn: (function (num) {
+            num += 1;
+            this.num += 2;
+            return function () {
+                this.num += 1;
+                num++;
+                return function () {
+                    this.num += 1;
+                    num++;
+                    console.log(num);
+                }
+            }
+        })(num)
+    };
+    var f = obj.fn;
+    f()();
+    obj.fn()();
+    console.log(num, obj.num);
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->Array数组的内置类
+    //ary -> Array.prototype -> Object.prototype
+    //Array.prototype:push、pop、shift、unshift、splice、slice、concat、join、toString、sort、reverse、indexOf、lastIndexOf、forEach、map、filter...
+
+    //->重写内置的SLICE方法:我们可以在内置类的原型上扩展和重写内置方法,重写完成后以后在调取使用以重写后的为主
+    //    Array.prototype.slice = function () {
+    //        console.log("ok");
+    //    };
+    //    var ary = [12, 23, 34];
+    //    ary.slice();//->'ok'
+
+    //->为了保证不修改内置的方法,我们在定义方法的时候最好把方法名前面追加特殊的前缀
+    //    Array.prototype.myUnique=function(){};
+    //    ~function (pro) {
+    //        function myUnique() {
+    //            //->this是当前需要去重的那个数组
+    //            var obj = {};
+    //            for (var i = 0; i < this.length; i++) {
+    //                var cur = this[i];
+    //                if (obj[cur] == cur) {
+    //                    //->已经重复了我们需要把当前这一项删除掉
+    //                    this[i] = this[this.length - 1];
+    //                    this.length--;
+    //                    i--;
+    //                    continue;
+    //                }
+    //                obj[cur] = cur;
+    //            }
+    //            obj = null;
+    //            return this;
+    //        }
+    //
+    //        pro.myUnique = myUnique;
+    //    }(Array.prototype);
+
+
+    //->在数组原型上扩展的方法,那么数组的每一个实例都可以调取这个方法使用了 ary.myUnique...
+    Array.prototype.myUnique = function () {
+        //->THIS是当前要去重操作的那个数组
+        var obj = {};
+        for (var i = 0; i < this.length; i++) {
+            var cur = this[i];
+            if (obj[cur] == cur) {
+                this[i] = this[this.length - 1];
+                this.length--;
+                i--;
+                continue;
+            }
+            obj[cur] = cur;
+        }
+        obj = null;
+        return this;//->为了实现链式写法
+    };
+
+
+    //    var ary = [1, 2, 3, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1];
+    //    ary.myUnique();//->this是ary
+    //    console.log(ary);
+
+    var ary2 = [2, 3, 4, 2, 3, 1, 2, 3, 4];
+    ary2.myUnique().sort(function (a, b) {
+        return b - a;
+    });
+    console.log(ary2);
+
+
+    //var ary = [1, 2, 3, 2, 3, 4, 3, 2, 1, 2, 3, 4, 3, 2, 1];
+    //    ary.sort();
+    //    ary.reverse();
+    //ary.sort().reverse();//->链式写法   ary可以使用sort的原因是：sort是Array.prototype上的一个方法,ary是Array的一个实例,所以就可以调取使用了；ary.sort执行完成的返回结果是排序后的数组,也依然是Array的实例,所以可以紧接着调取reverse这个方法了;
+    //ary.sort().reverse().push(100).pop();//->Uncaught TypeError: ary.sort(...).reverse(...).push(...).pop is not a function 执行完成push后返回结果是一个数字,新数组的长度,不在是Array的实例了,所以不能调取pop这个方法...
+    //console.log(ary);
+
+
+</script>
+</body>
+</html>

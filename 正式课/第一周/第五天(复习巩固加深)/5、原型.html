@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    function Fn() {
+        this.index = 10;//->f.index=10
+    }
+    //    Fn.prototype.sum = function () {
+    //        console.log(this.index);
+    //    };
+    Fn.prototype = {
+        sum: function () {
+            console.log(this.index);
+        }
+    };
+    //两种方式的区别：http://www.zhufengpeixun.cn/course/22/learn#lesson/460
+    var f = new Fn;
+    var f2 = new Fn;
+
+    //f.a = 12;//->只给当前的f实例增加一个'私有的属性'a,值是12
+    //f2.a ->undefined
+
+    //Fn.prototype.b = 13;//->在类的原型上(所有实例的公共地盘上增加一个b属性)
+    //f2.b->13
+
+    //f.__proto__.c = 14;//->也是在公共底盘上加了一个属性c
+    //f2.c->14
+
+    //f.sum ->获取所属类原型中的sum方法  f.sum()把获取的sum方法执行
+    //Fn.prototype.sum ->获取所属类原型中的sum方法 Fn.prototype.sum() 把获取的sum方法执行
+    //f.sum===Fn.prototype.sum ->true
+    //f.sum() Fn.prototype.sum() 但是执行的时候是由区别的因为sum中的THIS不一样
+
+    /*
+     * ->首先确定方法中的THIS:就看方法名前面是否有点,点前面是谁THIS就是谁
+     * ->然后到方法中把出现的THIS替换成对应的代码
+     * ->然后根据代码按照原型链查找的机制把对应的结果找到即可
+     */
+    //    f.sum();//->sum中的this是f ->console.log(f.index) ->10
+    //    f.__proto__.sum();//->sum中的this是f.__proto__ -> console.log(f.__proto.index) ->undefined
+    //    Fn.prototype.sum();//->sum中的this是Fn.prototype ->console.log(Fn.prototype.index) ->undefined
+
+    //->在IE浏览器中报错'无法获取未定义或null引用的属性“sum”':它的意思是IE浏览器中没有__proto__这个属性,但是其实是IE下有这个属性只不过IE不让我们用而已,就怕我们自己把内置类的原型给更改了,这样不安全...
+</script>
+</body>
+</html>
