@@ -1,0 +1,15 @@
+1 回去的时候看看考试的题
+
+2 call和apply bind
+3 call   1 先找到call方法  函数
+         2 把函数中的this修改成call的第一个参数
+         3 最后函数执行，其实函数中的this已经被修改过了
+
+4 apply 和call方法的用法基本相同   不同点： 传参的方式是数组
+
+5 最大值的例子  假设
+
+6 bind 也是处理this的，但是call和apply也立刻执行了，bind是返回了一个新的处理好this的函数
+
+7 Function.prototype 这是一个匿名的空函数
+
