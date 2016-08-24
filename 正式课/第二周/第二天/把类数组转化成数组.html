@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <ul id="ul">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</body>
+</html>
+<script>
+    function listToArray(likeArray){ //把类数组转化成数组
+        try{
+            return Array.prototype.slice.call(likeArray); //在ie7和8是有兼容性问题的
+        }catch(e){
+            console.log(e.message); //如果看错误是什么
+            var ary = [];
+            for(var i=0; i<likeArray.length; i++){
+                ary.push(likeArray[i]);
+            }
+            //throw new Error('这是我自己写的')； 可以人为主动在控制台中抛错误
+            return ary;
+        }
+    }
+    /*
+    *   try{
+    *       先尝试try里面的代码，如果报错了那么就直接再使用catch中的代码
+    *   }catch(e){
+    *       只有try的代码报错了才会执行到catch中的代码
+    *       其中这个e对象中存放了报错信息  e.message
+    *   }
+    *
+    *
+    *
+    * */
+
+    Array.prototype.myslice = function (n,m){
+        //this// 这个方法中的this就是我要操作(我要复制)原有数组
+        //如果我能把这个方法中的this修改成其他的类数组
+        //就是把类数组中从n到m-1项放到一个新数组里
+        //如果要是把this换成arguments就是把argument的n到m-1放到数组里
+        // call可以做修改this的操作
+        var ary = [];
+        for(var i=n; i<=m-1; i++){
+            ary.push(this[i]); //likeArray
+        }
+        return ary;
+    }
+
+
+    /*var res = [1,2,3].slice(0);
+    console.log(res); //[1,2,3]
+*/
+
+
+
+
+    //var lis = document.querySelectorAll('#ul li');
+    var lis = document.getElementById('ul').getElementsByTagName('li');
+    //console.dir(lis);
+    var lisAry = listToArray(lis);
+    console.dir(lisAry);
+</script>

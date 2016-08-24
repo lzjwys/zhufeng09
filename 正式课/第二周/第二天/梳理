@@ -1,0 +1,19 @@
+1 'use strict' 严格模式和非严格模式
+2 call() call(null) call(undefined)
+3 this : 自运行函数  fn()  //undefiend
+
+4 类数组转化成数组   listToArray
+    try catch(e) e.message
+    Array.prototype.slice.call(likeAry,0)
+
+5 utils.js 5个
+6 dom映射 一一对应关系
+7 sort 排序 dom元素.innerHTML  localeCompare
+8 appendChild 不会影响原来已经存在元素  回流
+9 回流：
+10 重绘
+11 innerHTML 一次回流  破坏原有存在的元素
+12 文档碎片  document.createDocumentFragment(); 容器
+13 前后台交互  图  数据交换
+14 JSON  stringify  parse  ie67  eval("("+ff+")")
+
