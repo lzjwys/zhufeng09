@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    function Foo(){ //构造函数  普通函数  实例
+        getName=function(){console.log(1)};
+        return this;
+    }
+    Foo.getName=function(){console.log(2)}; // 函数的属性
+    Foo.prototype.getName=function(){console.log(3)}; //函数原型上的属性  公有方法
+    var getName=function(){console.log(4)}; //全局变量
+    function getName(){console.log(5)} // 全局变量
+    Foo.getName(); // 2
+    getName(); // 4
+    Foo().getName(); // 1
+    getName(); // 1
+    var f = new Foo();
+    f.getName(); //3
+
+    console.log(fn); //error
+    if(function fn(){}){
+        var num = 5;
+    }
+
+</script>

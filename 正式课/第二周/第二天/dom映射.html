@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1 { width: 300px; margin: 30px auto; }
+        #div1 ul{ list-style: none; padding: 10px; }
+        #div1 ul li{ width: 200px; height: 40px; background: lightgreen; margin: 5px 0; font-size: 30px; text-align: center; line-height: 40px; }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <ul>
+            <!--<li>4</li>
+            <li>2</li>
+            <li>3</li>
+            <li>1</li>-->
+        </ul>
+    </div>
+</body>
+</html>
+<script src="utils.js"></script>
+<script>
+    var div1 = document.getElementById('div1'); //context 这个方法定义的位置
+    var ul = div1.getElementsByTagName('ul')[0];
+    var lis = ul.getElementsByTagName('li'); //类数组
+    console.log(lis); //获取的是一个包含着所有li的htmlcollection
+    // 排序，需要先把它转化成数组
+    var lisAry = utils.listToArray(lis);
+    console.log(lisAry);
+    lisAry.sort(function (a,b){
+        return a.innerHTML- b.innerHTML; //localeCompare
+    });
+    console.log(lisAry); //排序之后的数组
+    // 把排好序的数组中的每一项(dom映射关系存在的那个li)重新回填到页面中
+    //appendChild
+    for(var i=0; i<lisAry.length; i++){
+        ul.appendChild(lisAry[i]);
+    }
+    //不难发现： 是把页面中的li元素按照排好的顺序重新排列
+
+
+
+</script>

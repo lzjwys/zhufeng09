@@ -13,3 +13,10 @@
 
 7 Function.prototype 这是一个匿名的空函数
 
+f1.call(obj,1,2,3)
+f1.apply(obj,[1,2,3])
+var res = f1.bind(obj)
+res(1,2,3)
+res(4,5,6)
+
+

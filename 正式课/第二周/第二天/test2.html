@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var ary = [{age:30,name:'tianxi'},{age:40,name:"珠峰"},{age:20,name:"王晨"},{age:10,name:"张鑫"}];
+    //按照年龄排序
+    /*ary.sort(function (a,b){
+        return a.age- b.age;
+    });*/
+    //按照姓名排序,这是字符串排序
+    ary.sort(function (a,b){
+        return a.name.localeCompare(b.name);
+    });
+
+</script>
