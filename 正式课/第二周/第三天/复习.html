@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    'use strict';
+    function listToArray(likeAry){
+        try{
+            return Array.prototype.slice.call(likeAry);
+        }catch (e){ //e.message
+            var ary = [];
+            for(var i=0; i<likeAry.length; i++){
+                ary[ary.length] = likeAry[i];
+            }
+            return ary;
+        }
+    }
+    function jsonParse(jsonStr){
+        return 'JSON' in window ? JSON.parse(jsonStr) : eval("("+jsonStr+")");
+    }
+
+    //HTMLLIElement ==> HTMLElement ==> Element ==> Node ==> EventTarget ==> Object
+
+</script>
