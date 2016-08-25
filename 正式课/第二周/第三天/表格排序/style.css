@@ -1,0 +1,31 @@
+*{ margin: 0; padding: 0; }
+.box{
+    width: 500px;
+    margin: 50px auto;
+    border: 3px solid orangered;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: "microsoft yahei";
+}
+.box table{}
+.box table thead{
+    background: orangered;
+}
+.box table thead th,.box table tbody td{
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    -webkit-user-select: none;
+}
+.cursor{
+    cursor: pointer;
+}
+.c1{
+    background: lightblue;
+}
+.c2{
+    background: lightgreen;
+}
+
+
