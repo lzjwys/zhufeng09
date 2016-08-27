@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //非空验证的正则   应用： 表单注册必须填入内容的input
+    var reg = /^\s*$/; //可以匹配所有的空
+    console.log(!reg.test('   '));
+    //有效数字  0  +0  -0    +0.03    -100234234234.04    8     8.0    -8    82.236
+    var reg = /^[+-]?(\d|[1-9]\d+)(\.\d+)?$/;
+    // +/-   8|3045   .556
+    // +8.556
+    // -3045
+    // 8.556
+    // 8
+    // \d \w \D \W \n \s . \b ^ $
+    // ? + * {n} {n,} {n,m}
+    // | [\d] [.] [+-] [^xyz]
+
+    //简单的邮箱验证
+    // www.d.cn
+    // www.bj.gov
+    // www.adf.org
+    // www.aaa.cc
+    // www.adsf.hk
+    // www.aaas.cn
+    // www.aaas.jp
+
+    // 121170784@qq.com
+    // _tianxi@163.com
+    // tianxi@sina.com.cn
+    // tianxi@cmcm.com
+    // tianxi@ijinshan.com
+    // tianxi@conew.com
+    // tia.nxi@netqin.com
+    var reg =/^[\w.]+@[0-9a-zA-Z]{1,30}(\.[a-zA-Z]{2,4}){1,2}$/;
+
+    //18-65   18-19  20-59 60-65
+    var reg = /^(1[8-9]|[2-5][0-9]|6[0-5])$/;
+    console.log();
+
+    //身份证  211224(1990)031982(1)0/x
+
+
+
+
+
+</script>
