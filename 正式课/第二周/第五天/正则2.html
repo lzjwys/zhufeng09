@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>正则2</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    // \w \d \s \b \n \ . \D \W ^ $
+    // ? + * {8} {9,} {1,3}
+    // | [3-9 [^xyz] [.] [\d]
+    // test exec lastIndex null [] length index input
+    // match
+
+    var str = '211224198603198210';
+    //var reg = /^\d{17}(\d|x)$/;
+    var reg = /^\d{6}(\d{4})\d{6}(\d)(\d|x)$/;
+    console.log(reg.exec(str));
+    /*
+    *   正则的分组: 在字符串中如果想提取其中一部分，可以采用在正则中使用小括号的方式包起来，这样就形成了一个小分组，并且在捕获exec的结果中，会从数组的第二项开始分别把小分组拿到的结果一次排列
+    *
+    *
+    * */
+    var reg = /(\d+)/g;
+    var str = "zhufeng2015peixun2016";
+    console.log(reg.exec(str)); //[2015,index: input:]
+    /*
+    *   分组的引用: 如果在正则中存在分组,那么如果想使用分组里的内容，那么可以通过\n来引用分组的内容，n代表的是第几个分组。
+    * */
+    /*
+    *   问好的几种用法：
+    *       1 量词 0-1次
+    *       2 放在量词后面破坏贪婪行，尽可能少去匹配
+    *       3 ?:一起出现并且放在分组的开头，代表的是这个分组仅仅是匹配但是不捕获，并且也破坏了这个分组，更不可能使用分组引用了
+    *       4 正向预查询...
+    *
+    * */
+
+    var reg = /(\w)(?:\d)\1/;
+    //var reg = /(\d)\1\1\1/;
+    var str = 'a1a1';
+    //console.log(reg.test(str));
+    console.log(reg.exec(str)); //['a1a1','a','1']
+
+
+
+
+
+
+</script>
