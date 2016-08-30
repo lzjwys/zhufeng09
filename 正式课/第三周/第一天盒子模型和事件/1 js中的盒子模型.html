@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>盒子模型</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .outer{
+            position: relative;
+            width: 500px;
+            height: 300px;
+            background: #ccc;
+            margin: 30px auto;
+            padding: 100px;
+        }
+
+        .outer .middle{
+            position: relative;
+            width: 300px;
+            height: 300px;
+            padding: 50px 0;
+            border: 10px solid #000;
+            background: lightsalmon;
+            overflow-y: auto;
+        }
+
+        .outer .middle .inner{
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+
+        }
+
+    </style>
+</head>
+<body>
+    <div class="outer" id="outer">
+        <div class="middle c1" id="middle">
+            天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职天津市副市长尹海林涉嫌严重违纪被免职
+            <!--<div class="inner" id="inner">qwe</div>-->
+        </div>
+    </div>
+    <video src=""></video>
+    <audio src=""></audio>
+</body>
+</html>
+<script>
+    var outer = document.getElementById('outer');
+    var middle = document.getElementById('middle');
+    var inner = document.getElementById('inner');
+    console.dir(middle);
+    /*
+    *   js盒子模型:  middle属性
+    *       clientWidth: 内容的宽度
+    *       clientHeight: 内容的高度
+    *       clientLeft: 左边框的宽度
+    *       clientTop: 上边框的宽度
+    *
+    *       draggable: true/false 是否可拖拽
+    *
+    *       offsetWidth:  内容的宽度+左右边框的宽度
+    *       offsetHeight: 内容的高度+上下边框
+    *       offsetLeft: offsetLeft的值要取决于offsetParent是谁,是自己左边框外距离offsetParent的内边框的距离
+    *       offsetTop: 上边框外距离offsetParent内边框的距离
+    *       offsetParent: offsetParent是父级参照物。offsetParent是谁，要取决于元素的parentNode是否有定位属性(absolute,relative,fixed)，如果有就是这个。如果没有继续向上查找。一直找到包含定位属性的节点。如果还没有把body拿过来
+    *       document.body.offsetParent = null
+    *       document.body.parentNode = html
+    *       document.documentElement.parentNode = document
+    *
+    *       scrollWidth : 内容的宽度+左填充
+    *       scrollHeight : 内容的高度 + 上填充
+    *       scrollLeft: 滚出去的宽度
+    *       scrollTop: 滚出去的高度
+    *
+    *       ps: scrollWidth和clientWidth只有在内容溢出的情况下才不同
+    *
+    *       ps: 除了scrollTop和 scrollLeft 其他属性都不支持重新赋值
+    * */
+
+    function offset(ele){ //获取一个元素距离body左偏移量和上偏移量
+        var l = null;//声明一个基数
+        var t = null;
+        l += ele.offsetLeft; //先把自己的左偏移累加
+        t += ele.offsetTop;
+        var par = ele.offsetParent; //先获取自己的offsetParent(父级参照物)
+        //如果存在需要累加par的左边框和左偏移量
+        while(par){ //我不管执行多少次，只要存在offsetParent就累加。一直到body的offsetParent为null的时候停止
+            l += par.clientLeft/*边框*/ + par.offsetLeft/*偏移*/;
+            t += par.clientTop + par.offsetTop;
+            par = par.offsetParent; //不断更换循环的条件，每次需要获取不同的offsetParent的边框和偏移
+        }
+        return { left : l, top : t};
+    }
+
+    console.log(offset(middle).left);
+</script>
