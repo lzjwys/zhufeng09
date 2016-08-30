@@ -1,0 +1,40 @@
+1 盒子模型   clientWidth
+            clientHeight
+            clientLeft
+            clientTop
+
+            offsetWidth
+            offsetHeight
+            offsetLeft 距离offsetParent的偏移
+            offsetTop
+            offsetParent : relative absolute fixed  body
+            body.offsetParent = null
+            body.parentNode = html
+
+            offset方法: body偏移量  {left: l, top : t}
+            win() //attr val    val不存在
+
+
+            scrollWidth
+            scrollHeight
+            scrollTop :
+            scrollLeft :
+
+2 常用事件:   onblur onfocus oninput onchange onsubmit
+              onmouseover onmouseout onmouseenter onmouseleave onmousemove
+              onmousedown onmouseup  onmousewheel
+
+              window.onscroll onload
+              ondblclick
+
+              input.value
+
+              onkeyup
+              onkeydown
+              onkeypress
+
+              oncanplay........
+
+
+
+
