@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .c1 {
+            background: green;
+        }
+
+        #div1 {
+            width: 300px;
+            height: 300px;
+            background: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script src="../utils.js"></script>
+<script>
+    var div1 = document.getElementById('div1');
+    // div1.className = 'c1';
+    //div1.style.backgroundColor = 'green';
+    div1.style.width = utils.getCss(div1, 'width') + 100 + 'px';
+
+    function setCss(ele, attr, val) { //给元素设置样式
+        //width,height,left,top,right,bottom,margin,padding  marginLeft paddingBottom
+        if(attr == 'opacity'){ //设置透明度
+            ele.style.opacity = val; //标准浏览器
+            ele.style.filter = 'alpha(opacity='+ val*100 +')';
+            return;
+        }
+        //浮动也需要设置两组
+        if(attr == 'float'){ //浮动也存在兼容性问题
+            ele.style.cssFloat = val;
+            ele.style.styleFloat = val;  //ie
+            return;
+        }
+        var reg = /^(width|height|left|top|right|bottom|(margin|padding)(Left|Top|Right|Bottom)?)$/;
+        if (reg.test(attr)) { //判断属性名字是否符合正则，如果验证通过说明这个的属性设置的值可能是要加单位的
+            if (!isNaN(val)) { // val没有单位
+                val += 'px';
+            }
+        }
+        ele.style[attr] = val; //核心代码
+    }
+    setCss(div1, 'height', '800'); //val + 'px'
+    setCss(div1, 'display', 'block');
+    setCss(div1, 'opacity', 0.5);
+
+</script>
