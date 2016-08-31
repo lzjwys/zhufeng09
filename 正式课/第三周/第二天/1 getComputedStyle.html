@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+            opacity: 0.8;
+            filter: alpha(opacity=50); /*ie6-8*/
+        }
+
+        .box:before {
+            content: 'before';
+            width: 100px;
+            height: 30px;
+            background: green;
+            display: block;
+        }
+
+        .box:after {
+            content: 'after';
+            display: block;
+            width: 100px;
+            height: 40px;
+            background: yellow;
+        }
+
+        .box:hover {
+            background: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="box" class="box">
+
+</div>
+</body>
+</html>
+<script>
+    var box = document.getElementById('box');
+    //console.log(box.style.width);
+    /*
+     *   box.style:
+     *       1 通过style属性只能获取写在行内的样式
+     *       2 通过style属性设置样式也是设置在行内(通过js写进来的样式优先级高)
+     *
+     * */
+    /*
+     *   1  window.getComputedStyle(box,'before') : 经过浏览器计算过后的样式。所有生效的样式，包括默认样式在内。返回值是一个对象,第一个参数是获取哪个元素的样式，第二个参数是哪个伪类样式   (标准浏览器在ie9以下不兼容)
+     *   2  box.currentStyle 返回是一个包含着所有经过计算过后的样式的对象，区别getComputedStyle。这个是box的一个属性。而getComputedStyle是window对象下的一个方法，box作为一个参数
+     *
+     * */
+    //标准浏览器
+    //window.getComputedStyle(box); //获取的是box的所有样式
+    //var res = window.getComputedStyle(box,'before'); // 获取before伪类样式
+    //var res = window.getComputedStyle(box,null); //不获取伪类样式
+    /*console.log(res.content);*/
+
+    //ie6-8
+    box.currentStyle; //返回是一个包含着所有经过计算过后的样式的对象
+
+    function getCss(ele, attr) { //ele代表的是获取谁的样式，attr哪个样式
+        var val = null;
+        if (window.getComputedStyle) { //如果不存在在ie中是undefined
+            val = window.getComputedStyle(ele, null)[attr];
+        } else {
+            //ie6-8，还需要处理透明度。那就获取filter
+            if(attr == 'opacity'){ //只要代码运行到这，在ie6-8中获取透明度
+                val = ele.currentStyle['filter'];
+                //"alpha(opacity=50.6)"  "alpha(haha=50.6)" '50.6'
+                var filterReg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/;
+                //如果验证能通过说明设置了滤镜透明度样式，如果没通过说明就是默认值1,通过还需要把值捕获出来
+                val = filterReg.test(val) ? filterReg.exec(val)[1]/100 : 1;
+
+            }else{ //不是透明度不用去理会
+                val = ele.currentStyle[attr];
+            }
+
+        }
+        //处理单位
+        //100px  -50px 100.55rem  100em 100pt 100deg   '1'    'block' 'left'
+        var reg = /^-?\d+(\.\d+)?(px|rem|em|pt|deg)?$/;
+        if (reg.test(val)) { //如果验证通过就是带单位的，那么就把单位去掉
+            val = parseFloat(val);
+        }
+        return val;
+    }
+    console.log(getCss(box, 'width'));
+    //100 + 5
+
+    //
+
+
+</script>

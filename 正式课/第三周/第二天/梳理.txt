@@ -1,0 +1,11 @@
+1 window.getComputedStyle(ele,null)
+2 ele.currentStyle  经过渲染过后的样式
+3 获取样式: getCss   opacity 去单位
+4 设置样式:  ele.style.属性 = 值    setCss  opacity float 加单位
+5 瀑布流  什么样的方式实现的
+6 回到顶部:  定时器  1 当运动到达终点的时候，需要把定时器清掉
+                    2 当下一次运动开始都需要把上一次的定时器清掉
+                    3  速度写成5  根据距离算速度
+                    4 减速: 在定时器里算速度就是减速，距离一直在减少 scrollTop一直在变
+                    5 如何清除上一次定时器，需要把定时器的那个变量放到全局
+                    6 自定义属性存值
