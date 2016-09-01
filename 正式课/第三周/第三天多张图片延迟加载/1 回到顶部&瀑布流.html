@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>/*
+    cssreset*/
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html, body {
+        width: 100%;
+
+    }
+
+    ul {
+        list-style: none;
+        width: 30%;
+        /* height: 3000px;*/
+        float: left;
+    }
+
+    ul:nth-child(2) {
+        /*css3*/
+        margin: 0 5%;
+        /* background: red;*/
+        /*background: rgb(255,255,255);*/
+    }
+
+    .top {
+        display: none;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 10px solid black;
+        position: fixed;
+        right: 30px;
+        bottom: 30px;
+        color: white;
+        line-height: 90px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60px;
+        text-decoration: none;
+        background: lightpink;
+    }
+
+    </style>
+</head>
+<body>
+<ul></ul>
+<ul></ul>
+<ul></ul>
+<a class="top" href="javascript: void 0">顶</a><!--阻止a标签的默认行为-->
+</body>
+</html>
+<script src="../utils.js"></script>
+<script>
+    var uls = document.getElementsByTagName('ul');
+    var ulsAry = utils.listToArray(uls);
+    var btn = document.getElementsByClassName('top')[0];
+    function appendLiToUl(){
+        for(var i=0; i<50; i++){
+            var li = document.createElement('li');
+            li.style.height = utils.getRandom(100,300) + 'px';
+            utils.setCss(li,'backgroundColor','rgb('+utils.getRandom(0,255)+','+utils.getRandom(0,255)+","+utils.getRandom(0,255)+")");
+            ulsAry.sort(function (ul1,ul2){
+                return utils.getCss(ul1,'height') - utils.getCss(ul2,'height');
+            });
+            ulsAry[0].appendChild(li);
+        }
+    }
+    appendLiToUl();
+    window.onscroll = fn;
+    function fn(){
+        var scrollTop = utils.win('scrollTop');
+        if(scrollTop > utils.win('scrollHeight')-1000){
+            appendLiToUl();
+        }
+        //判断滚出去的高度是否已经超出了一个可视窗口的高度，如果超出就让按钮显示
+        var screenHeight = utils.win('clientHeight');
+        if(scrollTop > screenHeight){ //滚出去的高度已经超过一个屏
+            utils.setCss(btn,'display','block'); //给按钮设置样式
+        }
+    }
+    var timer = null;
+    btn.onclick = function (){
+        window.clearInterval(timer); //处理的是多次点击会形成多个定时器积累问题
+        var speed = 5;
+        timer = window.setInterval(function (){
+            var curScrollTop = utils.win('scrollTop');
+            if(curScrollTop <= 0){ //到达终点，需要把在回到顶部移除的onscroll事件重新绑定
+                window.clearInterval(timer);
+                window.onscroll = fn;
+            }
+            curScrollTop -= speed;
+            utils.win('scrollTop',curScrollTop);
+        },10);
+        utils.setCss(this,'display','none'); //点击按钮之后让这个按钮立刻消失
+        window.onscroll = null; //由于在回到顶部的过程中又会处罚window.onscroll事件。而这个事件仍然会让按钮显示，所以先把这个事件移除
+        //下一次滚动的时候按钮不再显示了，我们需要在回到顶部到达终点的时候，再把window.onscroll重新绑定
+    }
+
+
+
+
+</script>

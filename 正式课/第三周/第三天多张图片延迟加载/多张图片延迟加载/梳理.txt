@@ -1,0 +1,29 @@
+1 回到顶部+瀑布流 window.onscroll=null; 回到顶部的时候又重新把事件绑定上
+2 动画累积问题
+3 单张图片延迟加载   1 为什么要做图片延迟加载
+                    2 符合条件才进行图片延迟加载(首屏加载需要注意)
+                    3 win(scrollTop) + win(clientHeight) > offset(box).top + box.offsetHeight
+                    4   声明一个临时图片  临时图片的src赋值 tempImg.onload  自定义属性loaded来记录是否被加载过
+
+4 多张图片延迟加载   1 多张图片延迟加载的静态+样式
+                    2 nth-child(n) odd even
+                    3 省略号的样式   text-overflow: e.....   overflow:hidden  white-space: nowrap
+                    4 box-sizing: border-box;
+                    * meta:vp  tab
+
+                    js:
+
+                    1 获取元素
+                    2 获取数据
+                    3 绑定数据
+                    4 多张图片延迟加载
+                        循环给每一个符合条件的img做单张图片延迟加载（i的问题
+                        ）
+                    5 fadeIn
+
+                    // 根据数据类型不同来渲染不同的模板(模板引擎)  应用场景:
+
+
+
+
+

@@ -1,0 +1,60 @@
+*{margin: 0; padding:0; font-family: "microsoft yahei"; }
+.newList{
+    list-style: none;
+    padding: 10px;
+}
+.newList>li{
+    position: relative;
+    height: 70px;
+    border-bottom: 1px dashed #ccc;
+}
+
+
+.newList>li>div{
+
+}
+.newList>li>div:nth-child(odd){
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    width: 60px;
+    height: 60px;
+    background: url("../images/default.jpg") no-repeat;
+    background-size: 100% 100%;/*约束下背景图*/
+}
+.newList>li>div:nth-child(odd)>img{/*奇数*/
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    vertical-align: top;
+    opacity: 0;
+}
+.newList>li>div:nth-child(even){
+    height: 60px;
+    padding: 5px 0;
+    box-sizing: border-box;/*这个属性添加上之后，即使写了内填充也不用在处理宽度或者高度了*/
+    margin-left: 75px;
+}
+
+.newList>li>div:nth-child(even) h2{
+    font-size: 16px;
+
+    /*超出部分使用省略号*/
+    overflow: hidden;
+    white-space: nowrap;/*强制不换行*/
+    text-overflow: ellipsis;/*省略号*/
+}
+.newList>li>div:nth-child(even) p{
+    margin-top: 5px;
+    font-size: 14px;
+    color: #999;
+    line-height: 14px;
+    height: 28px;
+    overflow: hidden;
+    /*在超出部分添加省略号，并且是在中间行添加的*/
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}

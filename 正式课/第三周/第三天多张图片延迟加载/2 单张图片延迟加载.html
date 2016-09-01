@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin: 0; padding: 0;}
+        .box{
+            width: 300px;
+            height: 200px;
+            border: 3px solid #000;
+            margin: 3000px auto;
+            background: url("images/load.jpg") no-repeat center;
+        }
+        .box img{
+            display: none;
+            width: 100%;
+            height: 100%;
+            border: none;
+            vertical-align: top;
+        }
+    </style>
+</head>
+<body>
+    <div id="box" class="box"><img src="" realSrc="images/10.jpg" /></div>
+</body>
+</html>
+<script src="../utils.js"></script>
+<script>
+    // setAttribute()  getAttribute() removeAttribute()
+    var box = document.getElementById('box');
+    var img = box.getElementsByTagName('img')[0];
+    /*
+    *   浏览器默认缓存机制:
+    *       只要浏览器曾经到服务器获取过的资源，那么如果下次还是去获取相同的资源(如果是获取的那个路径是相同的,也可以是url)那么默认会读取本地缓存.
+    *       本地缓存: 只要曾经获取过的浏览器就会默认自动备份到本地一份。从第二次以后都是默认从本地缓存读取
+    *       刷新：ctrl+F5 强制刷新  不会读取本地的304缓存
+    *
+    *       ctrl+shift+delete
+    *
+    * */
+    window.onscroll = function (){ //绑定滚动条滚动事件
+        //当事件触发的时候，需要判断这个图片是否已经完全进入到当前的浏览器窗口内,如果完全进入之后那么才把图片的src属性赋值
+        var a = utils.win('clientHeight') + utils.win('scrollTop'); //浏览器底边距离body顶部的距离
+        var b = box.offsetHeight + utils.offset(box).top; //当前图片盒子的底部距离body顶部距离
+        if(a>b){
+            //img.src = img.getAttribute('realSrc');
+            // 已经完全进入浏览器可视窗口内,那么应该处理图片的src问题了
+            // 问题: 如果图片资源的路径是无效的，那么在页面内会报404错误，并且在也会有一个提示获取不到图片的图标，所以要做图片资源的有效性验证
+            if(img.loaded){ return; } //第一次去加载的时候这个loaded属性是undefined。只要成功加载过一次那么这个属性就是true。下面的代码就没有必要执行了
+            var tempImg = document.createElement('img'); //我要创建一个临时图片去加载这个路径验证有效性
+            var tempImg = new Image(); //图片的另外一种创建方式
+            tempImg.src = img.getAttribute('realSrc'); //临时图片去加载真实的资源
+            //图片src加载资源成功之后会触发一个onload事件
+            tempImg.onload = function (){ //加载成功就会触发
+                //这里代表都是图片资源有效要做的事
+                img.src = this.src; // this==> tempImg
+                utils.setCss(img,'display','block'); //验证完图片资源有限性再显示
+            }
+            img.loaded = true; //不管成功还是失败只要做过延迟加载那么下次就不必了。因为即使没有成功，多次加载也是不会成功的。
+        }
+    }
+
+
+</script>
