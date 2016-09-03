@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin: 0; padding: 0;}
+        .box{width: 300px; margin: 30px auto;}
+        .box ul{ list-style: none; }
+        .box li{ height: 30px; background: lightpink; margin: 3px 0; }
+    </style>
+</head>
+<body>
+    <div id="box" class="box x">
+        <ul id="ul" class=" c1 c4 ">  'c4'
+            <li></li>
+            <li></li>
+            <li id="li3"></li>
+
+            <li></li>
+            <li></li>
+            <a href="javascript:void 0"></a>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="utils.js"></script>
+<script>
+    var li = document.getElementById('li3');
+    var ul = document.getElementById('ul');
+    var box = document.getElementById('box');
+
+    var chs = utils.children(ul,'li'); //在所有ul的元素子节点中我只要li标签
+    console.log(chs);
+    console.log(utils.prevAll(li));
+    //
+    console.log(utils.index(li)); //2
+    console.log(utils.hasClass(box,"box")); //true
+    //
+    utils.hasClass(ul,"c1"); //
+    utils.addClass(ul,"c2       c3") //
+    utils.removeClass(ul,'c3 c2c4'); //class="c2 c1 c2 c3 c2c  c2"
+
+
+
+
+    function prevAll(ele){
+        var pre = ele.previousSibling;
+        var ary = [];
+        while(pre){
+            if(pre.nodeType == 1){
+                ary.unshift(pre);
+            }
+            pre = pre.previousSibling;
+        }
+    }
+</script>
+

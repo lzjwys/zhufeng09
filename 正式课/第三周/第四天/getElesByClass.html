@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <ul id="ul" class="c1 c2 c3 c4">
+
+
+        <li class="c1 c2"></li> c2 c3
+
+        <li class="c2 c3 c4"></li> c2 c3
+        <p class="c2 c3"></p> c2 c3
+        <span class="c2 c3"></span> c2 c3
+
+    </ul>
+</body>
+</html>
+<script>
+    var a = document.getElementsByClassName('c2 c3 c4 c5'); //同时包含c2和c3的
+    console.log(a);
+    var ul = document.getElementById('ul');
+    var b = ul.getElementsByClassName('c2 c3');
+    console.log(b);
+
+    function getElesByClass(strClass,context){ //context上下文，也可以理解是获取范围，如果传值那么就在这个范围内获取，如果没有传值就在document范围内获取
+        context = context || document;
+        /*if(context.getElementsByClassName){
+            return context.getElementsByClassName(strClass);
+        }*/
+        var strClassAry = strClass.replace(/(^ +| +$)/g,"").split(/ +/);
+        //['c2','c3']
+        var ary = [];
+        var childs = context.getElementsByTagName("*");
+        for(var i=0; i<childs.length; i++){ //循环的是所有的标签
+            var curEle = childs[i];
+            //所有标签
+            var flag = true;  //假设curEle符合要求
+            for(var j=0; j<strClassAry.length; j++){
+                //这个循环都是在破坏假设的这个条件，只要有一个传进来的class没有通过，那么后面就没有必要去验证。
+                var curClass = strClassAry[j]; // 'c2'  'c3'
+                // /(^| +)c2( +|$)/
+                // /(^| +)c3( +|$)/
+                var reg = new RegExp("(^| +)"+curClass+"( +|$)");
+                if(!reg.test(curEle.className)){
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                ary.push(curEle);
+            }
+
+        }
+        return ary;
+    }
+    var res = getElesByClass("  c2 c3 c4 c5");
+    console.log(res);
+
+</script>
