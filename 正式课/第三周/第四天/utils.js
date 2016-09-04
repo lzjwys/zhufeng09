@@ -14,19 +14,93 @@ var utils = {
         return "JSON" in window ? JSON.parse(jsonStr)  : eval("("+jsonStr+")");
     },
     getRandom : function (n,m){
-
+        n = Number(n);
+        m = Number(m);
+        if(isNaN(n)||isNaN(m)){
+            return Math.random();
+        }
+        if(n > m){
+            var temp = m;
+            m = n;
+            n = temp;
+        }
+        return Math.round(Math.random()*(m-n)+n);
     },
     offset : function (ele){
-
+        var l = null,
+            t = null;
+        l += ele.offsetLeft;
+        t += ele.offsetTop;
+        par = ele.offsetParent;
+        while(par){
+            if(!/MSIE 8/.test(window.navigator.userAgent)){
+                l += par.clientLeft;
+                t += par.clientTop;
+            }
+            l += par.offsetLeft;
+            t += par.offsetTop;
+            par = par.offsetParent;
+        }
+        return {left : l , top : t};
     },
     win : function (attr,val){
-
+        if(typeof val !=='undefined'){
+            document.documentElement[attr] = val;
+            document.body[attr] = val;
+        }
+        return document.documentElement[attr]||document.body[attr];
     },
     getCss : function (ele,attr){
+        var val = null;
+        if(window.getComputedStyle){
+            val = window.getComputedStyle(ele,null)[attr];
+        }else{
+            if(attr == 'opacity'){
+                val = ele.currentStyle.filter; //alpha(opacity=50.55)
+                var reg = /alpha\(opacity=(\d+(?:\.\d+)?)\)/;
+                val = reg.test(val) ? reg.exec(val)[1]/100 : 1;
+            }else{
+                val = ele.currentStyle[attr];
+            }
 
+        }
+        // 18px -18px -5.5px "0.5"
+        var reg = /-?\d+(\.\d+)?(px|em|rem|pt|deg)?/;
+        if(reg.test(val)){
+            val = parseFloat(val);
+        }
+        return val;
     },
     setCss : function (ele,attr,val){
-
+        if(attr == 'opacity'){
+            ele.style.opacity = val;
+            ele.style.filter = 'alpha(opacity='+val*100+')';
+            return;
+        }
+        if(attr == 'float'){
+            ele.style.cssFloat = val;
+            ele.style.styleFloat = val;
+            return;
+        }
+        var reg = /(width|height|left|top|right|bottom|(margin|padding)(Left|Top|Right|Bottom)?)/;
+        if(reg.test(attr)){
+            if(!isNaN(val)){
+                val += 'px';
+            }
+        }
+        ele.style[attr] = val;
+    },
+    //{}
+    setGroupCss : function (ele,options){ //options保证是一个对象才可以
+        options = options || [];
+        if(options.toString() == '[object Object]'){
+            //我就能保证options是一个对象{}
+            for(var key in options){ // background : 'green'
+                if(options.hasOwnProperty(key)){
+                    this.setCss(ele,key,options[key]);
+                }
+            }
+        }
     },
     ///////////////////////////////////
     prev : function (ele){ //获取元素上一个元素哥哥节点

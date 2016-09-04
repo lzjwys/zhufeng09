@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin: 0; padding: 0;}
+        .tabBox{
+            width: 300px;
+            margin: 10px auto;
+        }
+        .tabBox ul{
+            list-style: none;
+        }
+        .tabBox li{
+            float: left;
+            width: 80px;
+            margin-right: 20px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            background: lightpink;
+            cursor: pointer;
+        }
+        .tabBox li.selected{
+            background: lightblue;
+        }
+        .tabBox div{
+            text-align: center;
+            line-height: 200px;
+            display: none;
+            width: 300px;
+            height: 200px;
+        }
+        .tabBox div.selected{
+            display: block;
+            background: lightblue;
+        }
+        .clearFix:after{
+            content: '';
+            display: block;
+            height: 0;
+            overflow: hidden;
+            clear: both;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="tabBox1" class="tabBox">
+        <ul class="clearFix">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <div>1</div>
+        <div>2 </div>
+        <div>3</div>
+    </div>
+
+    <div id="tabBox2" class="tabBox">
+        <ul class="clearFix">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <div >1</div>
+        <div>2 </div>
+        <div>3</div>
+    </div>
+    <div id="tabBox3" class="tabBox">
+        <ul class="clearFix">
+            <li >1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <div>1</div>
+        <div>2 </div>
+        <div>3</div>
+    </div>
+</body>
+</html>
+<script src="../utils.js"></script>
+<script src="tab.js"></script>
+<script>
+    var tabs = utils.getElesByClass('tabBox'); //数组里包含着三个.tabBox的div
+    for(var i=0; i<tabs.length; i++){
+        zftab(tabs[i],0); //param1: container 容器  param2: 0 1 2
+    }
+
+</script>
+<script>
+
+
+
+
+   /* var div1 = document.getElementById('tabBox1');
+    var lis = div1.getElementsByTagName('li');
+    var divs = div1.getElementsByTagName('div');
+    for(var i=0; i<lis.length; i++){
+        lis[i].onmouseover = function (){
+            tab(this.index);
+        }
+        lis[i].index = i;
+    }
+    function tab(n){
+        for(var i=0; i<lis.length; i++){
+            lis[i].className = '';
+            divs[i].className = "";
+        }
+        lis[n].className = 'selected';
+        divs[n].className = 'selected';
+    }*/
+</script>

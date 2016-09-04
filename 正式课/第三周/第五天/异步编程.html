@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script>
+
+    /*
+        异步编程:
+
+    *   1 定时器是异步的,不阻塞代码运行
+    *   2 事件也是异步的
+    *   3 Ajax 1 new XMLHttpRequest() 2 open('get/post','url',false) 3 4
+    *   4 回调函数......往函数中传函数
+    *
+    *
+    * */
+     var timer1 = window.setTimeout(function (){
+         console.log(2);
+     },1000);
+     var timer2 = window.setInterval(function (){
+
+     },2000);
+     //window.clearTimeout(timer1);
+     //window.clearInterval(timer2);
+    console.log(1);
+    //while(11){ }
+
+
+    function fn(callback){
+        for(var i=0; i<5; i++){
+            callback(); //传进来这个参数执行
+        }
+    }
+    fn(function (){
+       console.log('ok');
+    });
+
+//    sort(function (a,b){return a-b});
+//    replace(reg,function (){});
+//    map(function (){})
+//    forEach(function (){})
+
+
+</script>
