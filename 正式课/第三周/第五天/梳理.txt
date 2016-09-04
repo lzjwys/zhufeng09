@@ -1,0 +1,14 @@
+1 setGroupCss ==> setCss  for in
+2 Object.prototype.toString.call()
+3 检测数据类型的4种方式  typeof instanceof constructor toString.call()
+4  toString()方法哪个类都有  Number.toString()
+5 单例模式的小技巧 ==> return {}
+6 isStanderBrowser
+7 处理js兼容的几种方式   try catch    in       window.navigator.userAgent /msie 8/i
+8 css方法 控制器 根据参数的个数和类型的不同做区分的
+9 在css中处理call和this的问题  setCss getCss setGroupCss 中的ele全都去掉了，处理了arguments
+10 选项卡的封装 ....... utils   this去查找元素   container defaultIndex
+11 同步和异步.... 1 定时器  2 ajax 3 实践  4 回调 (函数中传函数)
+12 回调函数的使用的时候一般要判断当前传进来的函数是不是一个函数 typeof "function"
+13 回调函数中的this一般是window  forEach map sort ...
+14 多张图片延迟加载。。。。(getElesByClass)

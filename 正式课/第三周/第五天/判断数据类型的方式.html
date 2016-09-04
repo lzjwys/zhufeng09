@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    // 1 typeof 可以验证基本数据类型，但是却不能验证对象数据类型。 "object"
+    // typeof : 'number' 'string' 'boolean' 'object' 'undefined' 'function'
+
+    //2 instanceof 判断一个实例是否属于一个类  true/false
+    console.log([] instanceof Array); //true
+    console.log(1 instanceof Number); // false
+    console.log('' instanceof  String);// false
+    console.log(new Number(1) instanceof Number); //true
+    // instanceof  只能检测引用数据类型，对于基本数据类型只能坚持实例创建方式
+
+    console.log([] instanceof Object); //true
+
+    // 3 constructor 局限性：这个属性是可以被修改的。那么就不准了
+    function A(){}
+    function B(){}
+    A.prototype = {};
+    A.prototype = new B(); //
+    A.prototype.constructor = A;
+    var a = new A();
+    a.constructor;
+
+    // 4 Object.prototype.toString.call() 最有效最精准检测数据类型的方式
+   // Array.prototype.slice.call(likeAry); //likeAry借用数组的slice方法
+    // "[object Object]" 对象
+    // '[object Array]' 第一个永远都是object(不变)代表的是数据类型, 第二个是一直都在变的。无论放一个什么样数据类型，都能检测出来。
+
+    // toString()这个方法基本上每个类的原型上都会有。并且作用不一定相同。Number类的toString()方法，如果传了传了一个数字2做参数，转成2进制
+
+</script>
