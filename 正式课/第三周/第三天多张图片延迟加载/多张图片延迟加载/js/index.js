@@ -42,7 +42,6 @@ function allImgsDelayLoad() {
         var b = curImg.parentNode.offsetHeight + utils.offset(curImg.parentNode).top;
         if (curImg.loaded) { continue; }
         if(a>b){ //只要符合这个条件的就是已经进入到浏览器内的
-
             var tempImg = new Image();
             tempImg.index = i; //由于事件是绑定给这个tempImg的，那么自定义属性index是配合事件发生的时候中的this使用的。自定义属性一般都是加给绑定事件的那个主体
             tempImg.src = imgs[i].getAttribute('realSrc');
