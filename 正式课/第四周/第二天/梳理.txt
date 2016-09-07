@@ -1,0 +1,11 @@
+1 多方向(属性)动画   for in    根据target终点的属性来获取当前开始begin添加属性
+
+2 封装叫做animate的方法  参数: ele 哪个元素运动
+                              target 这个元素要运动的终点
+                              duration 这个元素要在duration时间内完成运动
+                              effect : 0 1 2 3  ['Bonce','EaseInOut']
+                              callback : 元素运动到终点之后还要执行的函数
+
+                              /** 回车  快捷键
+3 左右轮播  step 当前显示图片的索引值
+            无缝连接 在最后添加一张图片 并且修改宽度

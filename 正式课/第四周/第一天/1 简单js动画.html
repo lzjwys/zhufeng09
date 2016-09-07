@@ -73,6 +73,7 @@
         if(time >= duration){ //花费的时间超过了规定的时间那么就是已经运动到达终点
             window.clearInterval(div1.timer); //到达终点清除定时器
             utils.css(div1,'left',maxLeft); //人为设置下终点的值
+
             return; //拦截代码
         }
         //var curLeft = time/duration*maxLeft; //根据公式计算出来应该到达的位置

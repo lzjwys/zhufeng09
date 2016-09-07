@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 0;
+            top : 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>
+<script src="../utils.js"></script>
+<script>
+    var div1 = document.getElementById('div1');
+
+/*
+    var time = 0; //一开始的花费的时间
+    var duration = 1000; //规定在1000ms内完成
+    var beginLeft = utils.css(div1,'left'); //获取当前div1的left的值(已经生效的left样式)
+    var targetLeft = utils.win('clientWidth') - div1.offsetWidth; //div1要运动到达的目标值
+    var beginOpacity = utils.css(div1,'opacity');
+    var targetOpacity = 0.2;
+    var changeOpacity = targetOpacity - beginOpacity;
+    var changeLeft = targetLeft - beginLeft; //需要运动的距离就是终点-起点
+    div1.timer = window.setInterval(function (){
+        time += 10; //花费的时间越来越多
+        if(time >= duration){ //花费的时间大于规定的时间就是已经到达终点，清除定时器，人为设置终点值。
+            window.clearInterval(div1.timer);
+            utils.css(div1,'left',targetLeft);
+            utils.css(div1,'opacity',targetOpacity);
+            return;
+        }
+        var leftVal = linear(time,beginLeft,changeLeft,duration); //计算出位置
+        utils.css(div1,'left',leftVal); //把位置赋值回去
+        var opacityVal = linear(time,beginOpacity,changeOpacity,duration);
+        utils.css(div1,'opacity',opacityVal);
+    },10);
+*/
+    var time = 0;
+    var duration = 1000;
+
+    var target = {
+        width: 300,
+        height: 50,
+        opacity : 0.2,
+        left : 300,
+        top : 300
+    };
+
+    var begin = {};
+    var change = {};
+    for(var key in target){
+        // key : width height opacity left
+        // 1 : begin['width'] =  2 : begin['height'] 3 begin['opacity'] 4 begin['left']
+        begin[key] = utils.css(div1,key);
+        change[key] = target[key] - begin[key];
+    }
+
+/*
+    var begin = {
+        width : utils.css(div1,'width'),
+        height : utils.css(div1,'height'),
+        opacity : utils.css(div1,'opacity'),
+        left : utils.css(div1,'left')
+    };
+    var change = {
+        width : target.width - begin.width, // width : 100 -100  = 0
+        height : target.height - begin.height,
+        opacity : target.opacity - begin.opacity,
+        left : target.left - begin.left
+    };
+*/
+
+    div1.timer = window.setInterval(function (){
+        time += 10;
+        if(time >= duration){
+            window.clearInterval(div1.timer);
+            utils.css(div1,target);
+            utils.css(div1,'background','blue'); //到终点之后变颜色
+            return;
+        }
+        for(var key in change){
+            // key : width height opacity left
+            // val : change[key]
+            if(change[key]){ //保证在这个方向上有运动我才做动画
+                // width
+                var targetVal = linear(time,begin[key],change[key],duration);
+                utils.css(div1,key,targetVal);
+            }
+        }
+    },10);
+
+
+    function linear(t,b,c,d){
+        // t 花费的时间
+        // b 开始的位置
+        // c 应该运动的距离 (终点-起点)
+        // d 时间(规定时间内完成)
+        return b + t/d*c;
+    }
+</script>
