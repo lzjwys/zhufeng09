@@ -46,7 +46,6 @@ function imgsDelayLoad(){
             tempImg.onload = function (){
                 curImg.src = this.src;
                 utils.css(curImg,'display','block');
-
             }
             tempImg = null;
         })(i);
