@@ -79,15 +79,41 @@ function focusAlign(){
         lis[i].className =  i === tempStep ? 'selected' : "";
     }
 }
-
+//鼠标悬停在轮播图上的时候还需要停止播放
+banner.onmouseover = function (){
+    window.clearInterval(timer); //清空定时器
+    leftBtn.style.display = rightBtn.style.display = 'block';
+}
+banner.onmouseout = function (){
+    timer = window.setInterval(autoMove,3000);
+    leftBtn.style.display = rightBtn.style.display = 'none';
+}
+//..............
 //左右点击按钮切换
-
+leftBtn.onclick = function (){
+    if(step == 0 ){
+        step = data.length; //4
+        utils.css(bannerInner,'left',-1000*step);
+    }
+    step--; //下一次的终点
+    animate(bannerInner,{left: -1000*step},500);
+    focusAlign();
+}
+rightBtn.onclick = autoMove;
 
 //点击焦点切换
+;(function bindEventForLis(){ //给所有的焦点绑定事件
+    for(var i=0; i<lis.length; i++){
+        lis[i].index = i; //用自定义属性的方式给每个焦点保存自己的索引值
+        lis[i].onclick = function (){
+            step = this.index; //点击哪一个焦点，就把焦点对应的索引值赋值给全局的step变量。而这个变量是控制下一次哪一张图片显示。
+            //把这个step的值重新修改也是为了保证下次自动轮播的时候，从现在这个点击切换过来的图片开始
+            animate(bannerInner,{left: -1000*step},500);
+            focusAlign();
+        }
+    }
+})();
 
-//鼠标悬停在轮播图上的时候还需要停止播放
-
-//..............
 
 
 
