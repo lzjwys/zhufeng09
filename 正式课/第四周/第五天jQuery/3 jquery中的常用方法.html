@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #div1{
+            width: 300px;
+            height: 200px;
+            background: red;
+            border: 10px solid #ccc;
+        }
+        #div1 li{
+            width: 200px;
+            height: 30px;
+            background: green;
+            margin: 3px 0;
+        }
+    </style>
+</head>
+<body>
+<video src=""></video>
+<div id="div1" class="div1">
+    <ul>
+        <li >文本</li>
+        <li class="c1"></li>
+        <li>文</li>
+        <li><span></span></li>
+    </ul>
+    <p id="p1"></p>
+</div>
+<p class="div1"></p>
+</body>
+</html>
+<script src="jquery-1.11.3.min.js"></script>
+<script>
+    // width,height...都是定义在jQuery这个类的原型上的方法，所以只有jq实例才可以使用
+    var $div1 = $('#div1');
+    // height(500) : 如果写参数就是设置，如果不写就是获取
+    console.log($div1.height());
+
+    //width() : 改变宽度
+
+    //[].slice().splice().concat().push()
+    //css方法
+/*
+    jQuery.prototype.css = function (){
+        //......
+        return this;
+    } //保证链式调用的最根本的原因
+*/
+
+
+    $div1.css({'width':300,background:'yellow'}); //同时设置多个样式的时候需要一个对象参数
+
+    //offset 和 utils.offset()用法相同
+    console.log($div1.offset().top);
+
+    //position() 相对于父元素的偏移
+
+    console.log($div1.position());
+
+
+    //scrollTop(1000)  scrollLeft(1000)   scrollTop属性
+
+    console.log($div1.scrollTop(1000)); //如果有参数就是设置，如果没有就是获取
+
+
+    // innerWidth innerHeight    clientHeight clientWidth
+
+    console.log($div1.innerHeight());
+
+    // outerHeight outerWidth     offsetHeight offsetWidth
+
+    console.log($div1.outerHeight());
+
+    
+
+
+
+
+
+
+</script>

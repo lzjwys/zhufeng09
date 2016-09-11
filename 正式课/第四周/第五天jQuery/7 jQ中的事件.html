@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #div1{ width: 100px; height: 100px; background: red; }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>
+<script src="jquery-1.11.3.min.js"></script>
+<script>
+    /*$('#div1').click(function (){
+        alert(1)
+    }); *///[context,length,selector,0:原生]
+
+    //$('#div1').click(); //主动触发
+
+/*
+    $('#div1').click(function (){
+        console.log('click');
+    }).mouseenter(function (){
+        console.log('mouseenter');
+    }).click().trigger('click');
+*/
+
+    //主动触发事件的方法  trigger('click')
+
+    //绑定事件的第二种方法
+    // on方法可以给同一个事件绑定不同的函数, 这是以前做不到的。dom的2级绑定事件
+    $('#div1').on('click',function (){
+        console.log(1);
+        console.log(this);
+        $(this)//
+    }).on('click',function (){
+        console.log(2);
+    }).trigger('click').off('click');
+
+    //off('click')  移除事件参数就是绑定的事件类型
+
+
+
+
+
+
+
+
+</script>
