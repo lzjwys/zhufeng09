@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="jquery-1.11.3.min.js"></script>
+<script>
+    // 回调函数
+    // []
+    var $callback = $.Callbacks(); //回调函数的集合,容器装的都是函数
+
+    function fn1(){
+        console.log(1);
+    }
+    function fn2(){
+        console.log(2);
+    }
+
+    // [fn1]
+    $callback.add(fn1); //向这个回调函数集合中添加一个fn1函数
+
+    // [fn1,fn2]
+    $callback.add(fn2); //向这个回调函数集合中添加一个fn1函数
+
+    $callback.fire(); //执行回调函数集合中的所有函数
+
+    $callback.remove(fn1); //从集合中移除方法
+
+    $callback.fire();
+
+
+
+    //animate(ele,target,duration,effect,[fn1,fn2,fn3])
+</script>

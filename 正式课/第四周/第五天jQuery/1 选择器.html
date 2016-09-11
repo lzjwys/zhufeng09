@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #div1{
+            width: 300px;
+            height: 200px;
+            background: red;
+        }
+        #div1 li{
+            width: 200px;
+            height: 30px;
+            background: green;
+            margin: 3px 0;
+        }
+    </style>
+</head>
+<body>
+    <video src=""></video>
+    <div id="div1" class="div1">
+        <ul>
+            <li >文本</li>
+            <li class="c1"></li>
+            <li>文</li>
+            <li><span></span></li>
+        </ul>
+        <p></p>
+    </div>
+    <p class="div1"></p>
+    <span ></span>
+
+    <form action="url">
+        <input type="text" disabled/>
+        <input type="hidden"/><!--就是用来提交给服务端的-->
+        <input type="submit"/>
+        <input type="checkbox" name="hobby" value="1" checked/>
+        <input type="checkbox" name="hobby"/>
+        <input type="checkbox" name="hobby" disabled />
+        <input type="checkbox" name="hobby"/>
+        <input type="checkbox" name="hobby"/>
+    </form>
+</body>
+</html>
+
+<script src="jquery-1.11.3.min.js"></script>
+
+<script>
+    /*
+        $就是jQuery的简写
+    *   基本选择器： id    $('#id')
+    *               class  $('.class')
+    *               tagName $('tagName')
+    *
+    *
+    *   [ 0:div1, length:1, context:document,selector:'#div1' ]
+    * */
+
+
+    /*function jQuery(selector,context){
+        context = context || document;
+        var ary = [];
+        var div1 = document.querySelector(selector);
+        ary.push(div1);
+        ary.selector = selector;
+        ary.context = context;
+        return ary;
+    }*/
+
+    // id
+    var res = $('#div1');
+    console.log(res);
+    // class
+    var res = $('.div1');
+    console.log(res);
+    // tagName
+    var res = $('div');
+    console.log(res);
+
+    // 层级选择器
+    var res = $('#div1>li');  //多有的li
+    console.log(res);
+
+    // + 下一个弟弟
+    var res = $('#div1+');
+    console.log(res);
+
+    //~ 所有的弟弟们
+    var res = $('#div1~');
+
+    //筛选器  (过滤)
+
+    // :first  :last  第一个和最后一个
+    console.log($('#div1 li:first'));
+    // even odd  奇数 偶数
+    console.log($("#div1 li:even"));
+
+    // not 在集合中排除
+    console.log($("#div1 li:not(.c1)")); //not小括号内是要排除的元素
+
+    // eq(index)
+    console.log($("#div1 li:eq(1)")); //从li集合中挑出索引为1的那一个
+
+    // gt(index) 大于   lt(index) 小于
+    console.log($('#div1 li:gt(1)')); // 大于索引1的
+
+    // 内容过滤
+
+    // contains(text)  过滤包含text文本的
+    console.log($('#div1 li:contains(文)'));
+
+    // empty 挑选没有内容的
+    console.log($('#div1 li:empty'));
+
+    // has(selector):
+    console.log($('#div1 li:has(span)')); //获取所有li中包含span标签的li
+
+    // hidden 不可见元素  display:none
+    console.log($('#div1 li:hidden'));
+
+    //ps: 通过jQ获取元素如果没有获取到那么返回值的length属性是0
+
+    // 属性过滤
+    console.log($('input[type=checkbox][value="1"][checked]'));  //在所有input标签中先过滤出type=checkbox的，然后再过滤出value=1的. 支持多层过滤
+
+    // [attr^="man"]   [attr$="man"]
+    console.log($('input[name^=a]')); // 属性值以a开头的
+    console.log($('input[name*=a]')); //只要属性值中包含a就可以
+
+
+    // 子元素过滤
+
+    // :fist-child   :last-child
+
+    // 表单过滤器
+    console.log($('input:checkbox'));  //获取类型为checkbox的input
+
+    // 表单对象属性
+    // checked selected enabled disabled
+    console.log($('input:checked')); //选中
+
+
+    var div1 = document.getElementById('div1');
+    var $div1 = $('#div1')/*通过jQuery的方式获取来的jq对象*/[0]/*原生的dom对象*/;
+   //ps: jQ对象只能使用jQuery的方法 ,原生对象的方法jQ对象是不能用的
+
+
+
+
+</script>

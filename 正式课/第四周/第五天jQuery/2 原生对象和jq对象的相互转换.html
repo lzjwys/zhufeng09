@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #div1{
+            width: 300px;
+            height: 200px;
+            background: red;
+        }
+        #div1 li{
+            width: 200px;
+            height: 30px;
+            background: green;
+            margin: 3px 0;
+        }
+    </style>
+</head>
+<body>
+<video src=""></video>
+<div id="div1" class="div1">
+    <ul>
+        <li >文本</li>
+        <li class="c1"></li>
+        <li>文</li>
+        <li><span></span></li>
+    </ul>
+    <p id="p1"></p>
+</div>
+<p class="div1"></p>
+</body>
+</html>
+<script src="jquery-1.11.3.min.js"></script>
+<script>
+    var div1 = document.getElementById('div1'); //原生dom对象
+    //把原生对象包装成jq对象
+    var $div1 = $(div1); //把原生对象转化成一个jq对象，就实在原有基础上使用 $()包装一下即可
+
+    //如何把一个jq对象转化成原生对象 用get方法
+    var $p = $('#p1'); //jq实例
+    console.log($p.get(0)); //这个就是把一个jq对象转化成原生对象
+
+
+
+
+
+
+</script>

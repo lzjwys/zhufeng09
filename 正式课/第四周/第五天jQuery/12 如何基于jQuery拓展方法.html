@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+</html>
+<script src="jquery-1.11.3.min.js"></script>
+<script>
+    // 1 在原型上拓展的方法 ==> jQuery给我们留了一个位置
+    $.fn.extend({ //这个就相当于直接在原型上拓展
+        tian : function (){
+            console.log('tian');
+        }
+    });
+
+    $('body').tian(); //只要是一个实例就可以调用我的新增加的方法
+
+    // 2 直接在类jQuery身上拓展的方法
+    $.extend({
+        mabin : function () {
+            console.log('mabin');
+        }
+    });
+    $().mabin();
+    $().constructor.mabin();
+
+    //$().constructor == $ true
+    jQuery.mabin();
+
+
+
+
+</script>
