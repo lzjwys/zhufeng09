@@ -1,0 +1,20 @@
+1 jQuery.extend({}); 静态方法 static $.ajax $.each
+2 jQuery.fn.extend({}); 原型上的方法  $.fn.extend({banner : banner});
+3 DOM0 DOM2  oDiv.onclick = function (){} //dom0
+
+             oDiv.addEventListener('click',function (){},true/false); //是在捕获还是冒泡阶段被触发
+4 事件委托 当页面内存在多个元素绑定事件的时候可以考虑利用事件委托，一般情况下和e.target一起使用
+
+
+5  e : 事件对象 事件发生函数执行的时候打印的arguments[0]; 记录的是事件发生时候那一刻的相关信息
+6 兼容性处理:   e || window.event;
+               e.target = e.target || e.srcElement;
+               e.type
+               e.clientX
+               e.pageX = e.pageX || (document.documentElement.scrollLeft||document.body.scrollLeft) + clientX;
+               e.preventDefault = e.preventDefault || function (){
+                  e.returnValue = false;
+               }
+               e.preventDefault ? e.preventDefault() : e.returnValue = false;  // return false  //阻止默认行为
+
+               e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
