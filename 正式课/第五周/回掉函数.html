@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    *   callback   node.js
+    *   animate(ele,target,duration,effect,callback)  向函数中传函数，就是回调
+    *
+    *
+    * */
+
+
+    //myForEach
+    Array.prototype.myForEach = function (callback,obj){ //obj参数就是修改callback中的this的
+        //callback执行多少遍取决于数组里有多少项
+        //在原型上的方法中的this是当前实例
+        // callback执行的次数取决于this(数组)的长度length
+        for(var i=0; i<this.length; i++){
+            typeof callback == 'function' && callback.call(obj,this[i],i,this);
+        }
+    }
+
+    var ary = ['a','b','c'];
+    // 不兼容
+   /* ary.forEach(function (item,index){
+        console.log(1);
+    });
+*/
+    //  forEach方法中的第二个参数，是修改第一个回调函数中的this的
+    var obj = {name:'tianxi'};
+    ary.myForEach(function (item,index,ary){
+        console.log(item,index,ary);
+        console.log(this);
+    },obj);
+
+
+    // map
+    var ary = ['a','b','c'];
+    var res = ary.map(function (item,index,ary){
+        return item+index;
+    },obj);
+    console.log(res);
+
+    Array.prototype.myMap = function (callback,obj){
+        var ary = [];
+        for(var i=0; i<this.length; i++){
+
+            if(typeof callback == 'function'){
+                var val = callback.call(obj,this[i],i,this);
+            }
+            ary.push(val);
+        }
+        return ary;
+    }
+
+    var res = ary.myMap(function (item,index,ary){
+        return item+index;
+    },obj);
+    console.log(res);
+
+
+    // forEach
+
+    var ary = ['a','b','c'];
+    //lis ==> [li,li,li]
+
+    ary.forEach(function (item,index,ary){
+        //window
+
+    },obj);
+
+    Array.prototype.myforEach = function (fn,obj){
+        //for ==> ary   ['a','b','c'];
+        for(var i=0; i<this.length; i++){
+            fn.call(obj,this[i],i,this);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+</script>
