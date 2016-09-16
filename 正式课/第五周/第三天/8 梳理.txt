@@ -1,0 +1,28 @@
+1. 多级菜单  给span添加 pointer 样式是使用js添加的，存在一个em的元素哥哥
+            利用事件委托  e.target  /(span|em)/i nodeName
+            var isBlock = utils.css(firstUl,"display") === "block";
+            parent 用此来获取ul更合适
+            在做打开还是隐藏判断的时候 if（isBlock） 关闭的时候把所有的子孙元素重新回复成关闭状态
+2. dom2事件兼容性
+            // addEventListener    removeEventListener
+            attachEvent    detachEvent
+            1.this ==》window
+                包装了一个函数，通过call来处理一下this
+                在绑定之前添加了一个origin用来记录当前的这函数是哪个fn化妆来的
+                由于移除的时候事件池我们没有办法自己读写。所以只能把tempfn函数和fn的对应关系放到一个自定义属性mybind+click  mybind+keyup类似于这样的自定义属性，mybind是用来区分和原生属性的。keyup和click是用来区分不同事件类型的。保证移除的时候不同的事件去不同的自定义属性中去查找对应的tempFn
+                console.log(oDiv.mybindclick) => [0: fn,1:fn....]
+                把这个函数添加到事件池 ==> 移除的时候找不到谁是fn了
+
+
+            2.事件被触发的时候绑定多个函数执行顺序的问题
+            3.重复绑定问题
+
+
+
+
+
+
+3. window.onload(dom 和 资源)    document.addEventListener("DOMContentLoaded") （dom即可）
+   $(function(){
+     // "DOMContentLoaded"
+   })

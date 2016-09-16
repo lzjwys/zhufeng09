@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    //onload加载结束之后
+    window.onload = function (){ //这是dom0级事件，一个事件只能绑定一个函数
+        //页面内所有的标签和资源全部加载完成之后
+        console.log('xxx');
+    }
+
+    document.addEventListener('DOMContentLoaded',function (){
+        //网页内所有的标签元素加载完成之后就可以触发,比window.onload
+        //这个事件只能通过dom2的方式绑定，可以绑定多个
+        // 如果要操作网页的元素必须要保证元素已经存在
+        console.log('yyy');
+    },false); // dom2 可以绑定多个事件
+
+    //$(function (){
+        // DOMContentLoaded
+        //使用jq有当浏览器打开就要操作元素的时侯，可以所有代码最外层添加一个这个函数
+        // 如果想获取网页内的任何元素必须要等这些元素的dom结构已经成功加载完成之后
+
+    //});
+
+   /* $(document).ready(function (){});*/
+
+
+
+</script>

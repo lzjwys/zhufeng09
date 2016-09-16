@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>多级菜单</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        ul{
+            display: none;
+        }
+        .menu{
+            width: 300px;
+            margin: 30px;
+            padding: 10px;
+            background:-webkit-linear-gradient(left top,lightblue,lightpink,lightcoral);
+            font-family: "microsoft yahei";
+            color: #333;
+        }
+        .menu li{
+            /*li不能写高度，因为li里面还有很多层级*/
+            line-height: 30px;
+            position: relative;
+        }
+        .menu li em{
+            position: absolute;
+            top: 7px;
+            display: block;
+            width: 16px;
+            height: 16px;
+            background: url("icon.png") no-repeat -59px -28px;
+            cursor: pointer;
+        }
+        .menu li em.open{
+            background-position: -42px -28px;
+        }
+        .menu li span{
+            display: inline-block;
+            padding-left: 18px;
+            /*cursor: pointer;*/
+            -webkit-user-select: none;
+        }
+        .first{
+            display: block;
+        }
+        .second{
+            margin-left: 20px;
+        }
+        .third{
+            margin-left: 40px;
+        }
+        .fourth{
+            margin-left: 60px;
+        }
+    </style>
+
+</head>
+<body>
+    <ul class="menu first" >
+        <li>
+            <em></em><span>第一级第一个</span>
+            <ul class="second">
+                <li><span>第二级第一个</span></li>
+                <li>
+                    <em></em><span>第二级第二个</span>
+                    <ul class="third">
+                        <li><span>第三级第一个</span></li>
+                        <li>
+                            <em></em><span>第三级第二个</span>
+                            <ul class="fourth">
+                                <li><span>第四级第一个</span></li>
+                                <li><span>第四级第二个</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><span>第一级第二个</span></li>
+    </ul>
+</body>
+</html>
+<script src="utils.js"></script>
+<script>
+    var title = document.getElementsByTagName('title')[0];
+    var n = 0;
+    window.setInterval(function (){
+        title.innerHTML = ++n;
+    },1000);
+
+    //先处理可以点击的span的cursor样式.只有span的上一个元素哥哥节点是em才能加这个样式
+    var menu = utils.getElesByClass('menu')[0];
+    var spans = menu.getElementsByTagName('span'); //所有的span
+    for(var i=0; i<spans.length; i++){
+        var curSpan = spans[i];
+        var pre = utils.prev(curSpan); //先获取当前这个span标签的上一个元素哥哥节点
+        //1 上一个元素哥哥存在 2 并且这个元素哥哥的标签名是em
+        if( pre && pre.nodeName.toLowerCase() == 'em'){
+            utils.css(curSpan,'cursor','pointer');
+        }
+    }
+    //把事件委托给最外层的menu元素：使用委托的时候就一定离不开事件源
+    menu.onclick = function (e){
+        e = e || window.event;
+        e.target = e.target || e.srcElement;
+        //判断点击事件是否来自于em或者span
+        var reg = /(em|span)/i;   //EM , SPAN , em , span
+        if(reg.test(e.target.nodeName)){
+
+            //符合条件的span不一定是那个可以打开的span
+            //首先获取e.target事件源的父节点li，如果这个li存在一个ul的孩子那么说明才是符合条件的。
+            var parent = e.target.parentNode; //li
+            //还要获取parent下面的第一个ul孩子
+            var firstUl = utils.children(parent,'ul')[0]; //可能不存在
+            var firstEM = utils.children(parent,'em')[0]; //获取第一个em,这个可以拿到下面的if判断里去
+            if(firstUl){ //条件成立那么就是存在这个ul
+                //从这里代码开始才是真正要执行逻辑
+                //判断firstUl现在的样式是block那么就设置成none，否则设置成block
+                var isBlock = utils.css(firstUl,'display') === 'block'; //用来记录当前这个ul是不是显示的
+                if(isBlock){ //显示的
+/*
+                    utils.css(firstUl,'display','none');
+                    firstEM.className = '';
+*/
+                    //我要把当前这个位置所有ul或者子集ul，em或者子集里的em全部都恢复成默认样式
+                    var allUls = parent.getElementsByTagName('ul');
+                    var allEMs = parent.getElementsByTagName('em');
+                    for(var i=0; i< allUls.length; i++){ //ul和em的个数是相等的。所以一个循环就可以了
+                        utils.css(allUls[i],'display','none');
+                        allEMs[i].className = ''; //utile.removeClass
+                    }
+
+                }else{ //隐藏的
+                    utils.css(firstUl,'display','block');
+                    //别忘记了把em的样式设置成"-"也就是open
+                    firstEM.className = 'open';
+                }
+
+            }
+        }
+    }
+
+    // 如果菜单多了只要更改html就可以了，不用修改js
+    /*
+    *   多级菜单对数据和菜单的格式基本是相同的。 联调  :  前端+后端+产品+老大
+    * */
+
+</script>
