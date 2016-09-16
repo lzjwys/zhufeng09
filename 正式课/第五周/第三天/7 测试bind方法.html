@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div{
+            width: 100px;
+            height: 100px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div id="div"></div>
+</body>
+</html>
+<script src="event.js"></script>
+<script>
+    var oDiv = document.getElementById('div');
+    function fn1 (){ console.log(1) }
+    function fn2 (){ console.log(2) }
+    function fn3 (){ console.log(3) }
+    function fn4 (){ console.log(4) }
+    function fn5 (){ console.log(5) }
+    function fn6 (){ console.log(6) }
+    function fn7 (){ console.log(7) }
+    function fn8 (){ console.log(8) }
+    function fn9 (){ console.log(9) }
+    function fn10 (){ console.log(10) }
+    function fn11 (){ console.log(11) }
+    function fn12 (){ console.log(12); console.log(this === oDiv) }
+    //绑定事件
+    bind(oDiv,'click',fn11);
+    bind(oDiv,'click',fn12);
+    //bind(oDiv,'dblclick',fn12);
+    //oDiv.attachEvent('onclick',fn12);
+    unBind(oDiv,'click',fn11);
+    unBind(oDiv,'click',fn12);
+    console.log(oDiv);
+</script>
+
+<script>
+   /* unBind(oDiv,'click',fn2);
+
+    oDiv.mybindclick = [tempFn(fn1),tempFn(fn2),tempFn(fn3)]; //click
+    oDiv.mybindmouseover = [tmepFn,tempFn,tempFn];
+    oDiv.mybindkeyup = [fn,fn2,fn3];
+*/
+</script>
