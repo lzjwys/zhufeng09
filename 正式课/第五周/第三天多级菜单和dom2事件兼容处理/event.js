@@ -6,7 +6,6 @@
  * @param fn 绑定的函数
  */
 function bind(ele,eventType,fn){ //处理dom2事件绑定的兼容
-
     if(ele.addEventListener){ //可能是一个函数/undefined
         ele.addEventListener(eventType,fn,false);
         return;

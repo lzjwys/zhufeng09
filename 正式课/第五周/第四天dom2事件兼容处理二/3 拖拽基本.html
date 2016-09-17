@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: yellowgreen;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+    //让div1在这个页面内居中
+    var oDiv = document.getElementById('div1');
+    function center() {
+        var l = ((document.documentElement.clientWidth || document.body.clientWidth) - oDiv.offsetWidth) / 2;
+        var t = ((document.documentElement.clientHeight || document.body.clientHeight) - oDiv.offsetHeight) / 2;
+        oDiv.style.left = l + 'px';
+        oDiv.style.top = t + 'px';
+    }
+    center();
+    window.onresize = center; //当窗口的大小改变的时候触发
+    // 拖拽
+
+    /*
+    *   1 先绑定onmousedown事件
+    *   2 在onmousedown中绑定onmousemove和onmouseup事件
+    *   3  onmousemove事件中我要时刻计算盒子的位置left和top值，并且赋值
+    *   4 onmouseup的时候需要把onmousemove事件和onmousedown事件都清空
+    * */
+
+    oDiv.onmousedown = function (e){
+        e = e || window.event;
+        var x = e.clientX - this.offsetLeft; //鼠标相对于盒子的偏移量,这个偏移量无论在拖拽的过程中还是在拖拽结束的那一刻都不不变的
+        var y = e.clientY - this.offsetTop;
+        this.x = x; //把这个相对的偏移量存到盒子本身的自定义属性身上
+        this.y = y; //this => oDiv
+        //绑定onmousemove事件
+        this.setCapture ? this.setCapture() : void 0; //就是让oDiv和鼠标有一个连接关系
+        /*oDiv*/document.onmousemove = function (e){
+            e = e || window.event;
+            //在拖拽的过程中盒子的新位置就是鼠标的位置减去鼠标相对于盒子的偏移量
+            var l = e.clientX - /*this*/oDiv.x;
+            var t = e.clientY - /*this*/oDiv.y;
+            //出边界我们要设置一个最小和最大值
+            var minL = 0;
+            var minT = 0;
+            var maxL = (document.documentElement.clientWidth||document.body.clientWidth) - oDiv.offsetWidth;
+            var maxT = (document.documentElement.clientHeight||document.body.clientHeight) - oDiv.offsetHeight;
+            // 如果比最小值还小那么就赋值成最小值。如果比最大值还大就赋值成最大值。其他都赋值成自己
+            l = l < minL ? minL : l > maxL ? maxL : l;
+            t = t < minT ? minT : t > maxT ? maxT : t;
+
+            /*this*/oDiv.style.left = l +'px';
+            /*this*/oDiv.style.top = t + 'px';
+        }
+        document.onmouseup = function (){ //鼠标弹起时刻接触绑定
+
+            /*this*/document.onmousemove = null;
+            /*this*/oDiv.releaseCapture ? /*this*/oDiv.releaseCapture() : void 0; //就是释放oDiv和鼠标的连接
+        }
+    }
+    // setCapture 和 releaseCapture这两个方法在chrome没有，在ie和firefox都 有
+    // chrome把onmousemove和onmouseup事件都绑定给document
+
+
+
+
+
+</script>
