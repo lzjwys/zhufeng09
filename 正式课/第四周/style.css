@@ -5,7 +5,7 @@
     margin: 30px auto;
     position: relative;
     overflow: hidden;
-    background: url("../第五周/第一天/jQ轮播图/images/default.gif") no-repeat center #ccc;
+    background: url("../第五周/第一天事件基础/jQ轮播图/images/default.gif") no-repeat center #ccc;
 }
 .banner .bannerInner{
     width: 1000px;
@@ -55,7 +55,7 @@
     height: 40px;
     top : 50%;
     margin-top: -20px;
-    background: url("../第五周/第一天/jQ轮播图/images/pre.png") no-repeat;
+    background: url("../第五周/第一天事件基础/jQ轮播图/images/pre.png") no-repeat;
 }
 .banner .right{
     right: 0;

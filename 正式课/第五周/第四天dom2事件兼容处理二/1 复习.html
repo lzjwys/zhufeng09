@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    *   div.attachEvent('onclick',fn);
+    *   1 this问题
+    *   2 执行顺序问题
+    *   3 重复绑定
+    * */
+    // click   fn1 ==> window
+    // click   fn2
+
+    // click   tempFn.origin = fn1
+    // click   tempFn.origin = fn2    [tempFn(fn1),tempFn(fn2)]
+
+    // keyup   tempFn.origin = fn1    [tempFn(fn1),tempFn(fn2)]
+
+    function bind(ele,eventType,fn){
+        if(ele.addEventListener){
+            ele.addEventListener(eventType,fn,false);
+            return;
+        }
+        var tempFn = function (){
+            fn.call(ele);
+        }
+        tempFn.origin = fn;
+        if(!ele['mybind'+ eventType]){ //模拟事件池
+            ele['mybind'+eventType] = [];
+        }
+        var a = ele['mybind'+eventType];
+        a.push(tempFn);
+        ele.attachEvent('on'+eventType,tempFn);
+    }
+    function unBind(ele,eventType,fn){
+        if(ele.removeEventListener){
+            ele.removeEventListener(eventType,fn,false);
+            return;
+        }
+        // for ie6-8
+        var a = ele['mybind'+eventType];
+        for(var i=0; i< a.length; i++){ // [tempFn,tempFn...]
+            var tempFn = a[i];
+            if(tempFn.origin === fn){
+                ele.detachEvent('on'+eventType,tempFn);
+            }
+        }
+    }
+
+
+
+</script>
