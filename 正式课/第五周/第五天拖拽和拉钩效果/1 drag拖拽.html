@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>拖拽</title>
+
+</head>
+<body>
+    <div id="div1" style="width: 100px; height: 100px; background: red; position: absolute; left: 0; top: 0;"></div>
+</body>
+</html>
+<script>
+    var oDiv = document.getElementById('div1');
+    oDiv.onmousedown = function (e){
+        e = e || window.event;
+        //把点击那一刻鼠标坐标相对于盒子的偏移记录下来并且保存为一个自定义属性
+        oDiv.x = e.clientX - oDiv.offsetLeft;
+        oDiv.y = e.clientY - oDiv.offsetTop;
+        //把事件绑定给document是因为在chrome里没有oDiv.setCapture() 这个方法只要存在就相当于让oDiv和鼠标之间有一道链接。只有主动releaseCapture()执行这个函数才会把这个链接断开
+        oDiv.setCapture ? oDiv.setCapture() : void 0;
+        document.onmousemove = function (e){
+            e = e || window.event;
+            var l = e.clientX - oDiv.x;
+            var t = e.clientY - oDiv.y;
+            oDiv.style.left = l + 'px';
+            oDiv.style.top = t + 'px';
+        }
+        document.onmouseup = function (e){
+            e = e || window.event;
+            oDiv.releaseCapture ? oDiv.releaseCapture() : void 0;
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    }
+</script>

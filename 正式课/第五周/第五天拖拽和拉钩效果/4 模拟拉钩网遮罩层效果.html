@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box{
+            width: 200px;
+            height: 200px;
+            margin: 30px auto;
+            position: relative;
+            box-shadow: 3px 3px 5px #ccc;
+            overflow: hidden;
+        }
+        #box img{
+            width: 100%;
+            height: 100%;
+            border: none;
+            vertical-align: top;
+        }
+        #box span{
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: lightgoldenrodyellow;
+            opacity: 0.7;
+            line-height: 200px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+            left: -200px;
+            top : 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <img src="images/1.png" alt=""/>
+        <span class="mask">我是遮罩</span><!--遮罩-->
+    </div>
+</body>
+</html>
+<script src="utils.js"></script>
+<script src="animate.js"></script>
+<script>
+    //如果是多个那么就把绑定事件放到一个函数里，然后把box通过参数传进来就可以了
+    var box = document.getElementById('box');
+    var span = box.getElementsByTagName('span')[0];
+    box.onmouseenter = function (e){ //onmouseenter事件来代替onmouseover
+        e = e || window.event;
+        //先要判断我的鼠标是从盒子的那个方向进来的
+        var res = getDirection(this,e);  //res代表的就是方向
+        //通过res来判断方向 0 , 1 ,2 ,3
+        console.log(res);
+        switch (res){
+            case 0: //左
+                    utils.css(span,{left: -200, top : 0});
+                break;
+            case 1:
+                    utils.css(span,{left: 0, top : 200});
+                break;
+            case 2:
+                    utils.css(span,{left: 200, top : 0});
+                break;
+            case 3:
+                    utils.css(span,{left : 0, top : -200});
+                break;
+        }
+
+        animate(span,{left:0,top:0},500);
+    }
+    box.onmouseleave = function (e){ //onmouseleave代替onmouseout
+        var res = getDirection(this,e); // 算从哪个方向出去
+        switch (res){
+            case 0: //左
+                animate(span,{left: -200, top : 0},500);
+                break;
+            case 1:
+                animate(span,{left: 0, top : 200},500);
+                break;
+            case 2:
+                animate(span,{left: 200, top : 0},500);
+                break;
+            case 3:
+                animate(span,{left : 0, top : -200},500);
+                break;
+        }
+    }
+
+
+    function getDirection(box,e){ //获取鼠标进入的或者离开时候的方向
+        //当鼠标进入的那一刻那个点x和y轴坐标
+        var x = e.clientX - box.offsetLeft - box.offsetWidth/2;
+        var y = box.offsetTop + box.offsetHeight/2 - e.clientY;
+        //根据坐标利用Math.atan2(y,x)来求这个坐标对应的弧度，并且把这个弧度转化成角度
+        var angu = Math.atan2(y,x)*180/Math.PI; //  rat*180/PI 弧度转角度
+        // 这个角度的区间是[-180,180]
+        // 加上180之后那个这个角度是[0,360]
+        // 然后这个角度再除以90是[0,4]之间的,但是不一定是整数
+        // Math.round() 四舍五入取整   0/4 1 2 3
+        // %4   ==>   0,1,2,3
+        // 0 左边  1 下  2 右 3 上
+        return Math.round((angu+180)/90)%4;
+        //需要一个返回值来代表是哪个方向
+    }
+
+
+
+
+</script>
