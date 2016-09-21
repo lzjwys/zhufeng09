@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #EEE;
+            overflow: hidden;
+        }
+
+        .box {
+            position: absolute;
+            top: 100px;
+            left: 200px;
+            z-index: 0;
+            width: 100px;
+            height: 100px;
+            cursor: move;
+        }
+
+        .box img {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        #box2 {
+            top: 200px;
+            left: 300px;
+        }
+
+        #box3 {
+            top: 300px;
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box"><img src="img/1.png"/></div>
+<div class="box" id="box2"><img src="img/2.png"/></div>
+<div class="box" id="box3"><img src="img/3.png"/></div>
+
+<script type="text/javascript" src="js/event.js"></script>
+<script type="text/javascript">
+    var box = document.getElementById('box'),
+            box2 = document.getElementById('box2'),
+            box3 = document.getElementById('box3');
+    var winW = document.documentElement.clientWidth || document.body.clientWidth,
+            winH = document.documentElement.clientHeight || document.body.clientHeight,
+            minL = 0,
+            minT = 0,
+            maxL = winW - box.offsetWidth,
+            maxT = winH - box.offsetHeight;
+    var n = 0;
+
+    /*避免图片默认拖拽出虚影的行为,所以我们把图片的默认行为禁止掉*/
+    var imgList = document.getElementsByTagName('img');
+    for (var i = 0; i < imgList.length; i++) {
+        on(imgList[i], 'mousemove', function (e) {
+            e.preventDefault();
+        });
+    }
+
+    /*拖拽*/
+    on(box, 'mousedown', down);
+    on(box2, 'mousedown', down);
+    on(box3, 'mousedown', down);
+    function down(e) {
+        this['strX'] = e.clientX;
+        this['strY'] = e.clientY;
+        this['strL'] = this.offsetLeft;
+        this['strT'] = this.offsetTop;
+
+        this['MOVE'] = processThis(move, this);//this->box
+        this['UP'] = processThis(up, this);
+        on(document, 'mousemove', this['MOVE']);
+        on(document, 'mouseup', this['UP']);
+
+        //->按下谁,谁在上面
+        this.style.zIndex = ++n;
+
+        //->在拖拽开始的时候结束当前盒子正在运行的动画
+        window.clearInterval(this.flyTimer);
+        window.clearInterval(this.dropTimer);
+    }
+    function move(e) {
+        var curL = e.clientX - this['strX'] + this['strL'];
+        var curT = e.clientY - this['strY'] + this['strT'];
+        curL = curL < minL ? minL : (curL > maxL ? maxL : curL);
+        curT = curT < minT ? minT : (curT > maxT ? maxT : curT);
+        this.style.left = curL + 'px';
+        this.style.top = curT + 'px';
+
+        //->计算水平方向运动的速度
+        if (!this['prev']) {
+            this['prev'] = this.offsetLeft;
+        } else {
+            this['speedFly'] = this.offsetLeft - this['prev'];
+            this['prev'] = this.offsetLeft;
+        }
+    }
+    function up() {
+        off(document, 'mousemove', this['MOVE']);
+        off(document, 'mouseup', this['UP']);
+
+        //->开始运动
+        fly.call(this);//->让FLY方法中的THIS变为当前操作的元素BOX
+        drop.call(this);
+    }
+
+    /*水平*/
+    function fly() {
+        var _this = this,
+                speedFly = _this['speedFly'];
+        _this.flyTimer = window.setInterval(function () {
+            if (Math.abs(speedFly) < 0.5) {
+                //->由于offsetLeft获取的值会进行四舍五入,如果加减一个小于0.5的值对最后的结果不会产生任何的影响(盒子位置就不会在动了),我们此时清除定时器即可
+                window.clearInterval(_this.flyTimer);
+                return;
+            }
+            speedFly *= 0.98;//->让速度每一次都乘以一个小于1的值,这样的话速度会越来越小,到最后停止(最好使用0.98这样衰减的指数看上去比较的不错)
+            var curL = _this.offsetLeft + speedFly;
+            if (curL > maxL) {
+                speedFly *= -1;
+                curL = maxL;
+            } else if (curL < minL) {
+                speedFly *= -1;
+                curL = minL;
+            }
+            _this.style.left = curL + 'px';
+        }, 17);
+    }
+
+    /*垂直*/
+    function drop() {
+        var _this = this,
+                speedDrop = 9.8,
+                flag = 0;
+        _this.dropTimer = window.setInterval(function () {
+            if (flag > 1) {
+                window.clearInterval(_this.dropTimer);
+                return;
+            }
+
+            speedDrop *= 0.98;//->让速度也在衰减
+            speedDrop += 10;//->让下落的时候越来越快,让反弹的时候越来越慢(因为下落的速度为正数,而反弹时候的速度为负数)
+
+            var curT = _this.offsetTop + speedDrop;
+            if (curT > maxT) {
+                speedDrop *= -1;
+                curT = maxT;
+                flag++;
+            } else {
+                flag = 0;
+            }
+            _this.style.top = curT + 'px';
+        }, 17);
+    }
+</script>
+</body>
+</html>
