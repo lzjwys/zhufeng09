@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //    var xhr = new XMLHttpRequest;
+    //    //->创建AJAX对象,在IE6及以下浏览器中不兼容,我们需要使用下述的三种方式来处理一下兼容
+    //    xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    //    xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    //    xhr = new ActiveXObject('Msxml3.XMLHTTP');
+
+    //    function createXHR() {
+    //        var xhr = null;
+    //        if (window.XMLHttpRequest) {
+    //            xhr = new XMLHttpRequest;
+    //        } else {
+    //            //->IE6
+    //            //if (new ActiveXObject('Microsoft.XMLHTTP')) {} 这样写不行，因为如果不兼容的话，我们执行new ActiveXObject直接的报错了，所以不能这样检测是否兼容，需要使用TEY CATCH检测
+    //            try {
+    //                xhr = new ActiveXObject('Microsoft.XMLHTTP');
+    //            } catch (e) {
+    //                try {
+    //                    xhr = new ActiveXObject('Msxml2.XMLHTTP');
+    //                } catch (e) {
+    //                    try {
+    //                        xhr = new ActiveXObject('Msxml3.XMLHTTP');
+    //                    } catch (e) {
+    //
+    //                    }
+    //                }
+    //            }
+    //        }
+    //        return xhr;
+    //    }
+
+    //->每一次执行createXHR都会从头到尾的验证一遍哪一个兼容,但是我们想要的不是这样：我们想要的是第一次执行我从头到尾过一遍获取到XHR，并且也知道只有四句话中的某一句话是兼容的，那么第二次在执行的时候我们只需要执行那一句话即可不需要从头到尾在验证一遍
+    //    var xhr1 = createXHR();
+    //    var xhr2 = createXHR();
+
+
+    //->惰性思想:高级单例模式，使用JS惰性思想封装的单例模式
+    var utils = (function () {
+        var flag = 'getComputedStyle' in window;
+
+        function getCss(curEle, attr) {
+            if (flag) {
+                return window.getComputedStyle(curEle, null)[attr];
+            }
+            return curEle.currentStyle[attr];
+        }
+
+        return {
+            getCss: getCss
+        }
+    })();
+
+    utils.getCss();
+    utils.getCss();
+
+
+</script>
+</body>
+</html>
