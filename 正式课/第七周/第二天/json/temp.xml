@@ -1,0 +1,10 @@
+<root>
+    <student>
+        <name>马宾</name>
+        <age>25</age>
+    </student>
+    <student>
+        <name>候龙飞</name>
+        <age>52</age>
+    </student>
+</root>
