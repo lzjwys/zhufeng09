@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    //->escape和unescape:如果我们是对中文汉字值进行编码的话,可以使用这种方式,但是这种方式一些其它的服务器端语言不支持
+    //    escape('珠峰培训') ->"%u73E0%u5CF0%u57F9%u8BAD"
+    //    unescape("%u73E0%u5CF0%u57F9%u8BAD") ->"珠峰培训"
+
+    //var url = 'http://www.zhufengpeixun.cn/info?name=珠峰培训&age=10';
+
+    //->encodeURI decodeURI
+    //    var a = encodeURI(url);
+    //    console.log(a);//->'http://www.zhufengpeixun.cn/info?name=%E7%8F%A0%E5%B3%B0%E5%9F%B9%E8%AE%AD&age=10'
+    //    console.log(decodeURI(a));
+
+    //->encodeURIComponent decodeURIComponent
+    //    var a = encodeURIComponent(url);
+    //    console.log(a);//->'http%3A%2F%2Fwww.zhufengpeixun.cn%2Finfo%3Fname%3D%E7%8F%A0%E5%B3%B0%E5%9F%B9%E8%AE%AD%26age%3D10'
+    //    console.log(decodeURIComponent(a));
+
+    //encodeURI PK encodeURIComponent
+    //->encodeURI只会给字符串中的中文进行编码
+    //->encodeURIComponent会给当前字符串中的所有的中文汉字或者特殊字符进行编码
+
+
+    var url = 'http://www.zhufengpeixun.cn/info?name=珠峰培训&age=10&url=http://www.js.com/like/&lx=1';
+
+    console.log(encodeURI('http://www.zhufengpeixun.cn/info?name=珠峰培训&age=10&url=' + encodeURIComponent('http://www.js.com/like/') + '&lx=1'));
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript">
+    var xhr = new XMLHttpRequest;
+    xhr.open('GET', 'json/data.json');
+
+    //->设置自定义请求头信息:我们可以通过这个手段把内容传递给服务器(属性值不能是中文:如果需要传递中文的话,我们客户端需要进行编码,服务器端获取到内容后在进行解码即可)，而且我们只能在OPEN之后和SEND之前设置
+    xhr.setRequestHeader('zhufeng', escape('珠峰培训'));
+
+    //->设置超时时间:设置一个超时时间,当AJAX请求超过这个时间,AJAX请求就中断了
+    //xhr.timeout = 10;//->10ms
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 2) {
+            xhr.abort();//->中断当前的AJAX请求
+        }
+
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+        }
+    };
+    xhr.send(null);
+</script>
+</body>
+</html>
